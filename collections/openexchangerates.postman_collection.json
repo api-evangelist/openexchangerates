@@ -1,0 +1,184 @@
+{
+  "info": {
+    "name": "Open Exchange Rates API",
+    "description": "Live and historical foreign exchange (forex) rates for 200+ world currencies as plain-text JSON over HTTPS. Base URL: https://openexchangerates.org/api. Every data request requires an App ID (app_id query parameter or Authorization: Token header). Feature access is tiered by plan - base currency change requires a paid plan, time-series requires Enterprise or Unlimited, convert requires Unlimited, and OHLC requires VIP Platinum. Requests to currencies.json and usage.json do not count against your quota.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://openexchangerates.org/api", "type": "string" },
+    { "key": "appId", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Latest Rates",
+      "item": [
+        {
+          "name": "Get the latest exchange rates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/latest.json?app_id={{appId}}&base=USD&symbols=EUR,GBP,JPY",
+              "host": ["{{baseUrl}}"],
+              "path": ["latest.json"],
+              "query": [
+                { "key": "app_id", "value": "{{appId}}", "description": "Your unique App ID." },
+                { "key": "base", "value": "USD", "description": "Base currency (3-letter code, default USD; paid plans only).", "disabled": true },
+                { "key": "symbols", "value": "EUR,GBP,JPY", "description": "Comma-separated 3-letter codes to limit results.", "disabled": true },
+                { "key": "show_alternative", "value": "false", "description": "Include alternative, black market, and digital currency rates.", "disabled": true },
+                { "key": "prettyprint", "value": "false", "description": "Human-readable formatting.", "disabled": true }
+              ]
+            },
+            "description": "Returns the latest exchange rates relative to the base currency (USD by default). Refresh frequency depends on plan: hourly (Free/Developer), 30 minutes (Enterprise), 5 minutes (Unlimited)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Historical Rates",
+      "item": [
+        {
+          "name": "Get historical exchange rates for a date",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/historical/:date.json?app_id={{appId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["historical", ":date.json"],
+              "query": [
+                { "key": "app_id", "value": "{{appId}}", "description": "Your unique App ID." },
+                { "key": "base", "value": "USD", "description": "Base currency (Developer plan and above).", "disabled": true },
+                { "key": "symbols", "value": "EUR,GBP,JPY", "description": "Comma-separated 3-letter codes to limit results.", "disabled": true },
+                { "key": "show_alternative", "value": "false", "description": "Include alternative and black market rates.", "disabled": true }
+              ],
+              "variable": [
+                { "key": "date", "value": "2013-02-16", "description": "Requested date in YYYY-MM-DD format (UTC), back to 1999-01-01." }
+              ]
+            },
+            "description": "Returns end-of-day exchange rates for the requested UTC date, currently going back to January 1st, 1999."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Time Series",
+      "item": [
+        {
+          "name": "Get bulk daily rates for a date range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/time-series.json?app_id={{appId}}&start=2013-01-01&end=2013-01-31&symbols=EUR,GBP,JPY",
+              "host": ["{{baseUrl}}"],
+              "path": ["time-series.json"],
+              "query": [
+                { "key": "app_id", "value": "{{appId}}", "description": "Your unique App ID." },
+                { "key": "start", "value": "2013-01-01", "description": "Start date (YYYY-MM-DD, inclusive)." },
+                { "key": "end", "value": "2013-01-31", "description": "End date (YYYY-MM-DD, inclusive). Max range is one month." },
+                { "key": "symbols", "value": "EUR,GBP,JPY", "description": "Recommended to limit results and payload size." },
+                { "key": "base", "value": "USD", "description": "Base currency (3-letter code, default USD).", "disabled": true }
+              ]
+            },
+            "description": "Returns daily historical rates for a date range (max one month). Each day counts as one API request. Enterprise and Unlimited plans."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Convert",
+      "item": [
+        {
+          "name": "Convert a value between two currencies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/convert/:value/:from/:to?app_id={{appId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["convert", ":value", ":from", ":to"],
+              "query": [
+                { "key": "app_id", "value": "{{appId}}", "description": "Your unique App ID." }
+              ],
+              "variable": [
+                { "key": "value", "value": "19999", "description": "The value to convert." },
+                { "key": "from", "value": "GBP", "description": "The base (from) currency as a 3-letter code." },
+                { "key": "to", "value": "EUR", "description": "The target (to) currency as a 3-letter code." }
+              ]
+            },
+            "description": "Converts a value between two currencies at the latest API rates, returning the rate and timestamp used plus the converted amount. Unlimited plan only."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Currencies",
+      "item": [
+        {
+          "name": "Get supported currencies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/currencies.json",
+              "host": ["{{baseUrl}}"],
+              "path": ["currencies.json"],
+              "query": [
+                { "key": "show_alternative", "value": "false", "description": "Include alternative, digital, and unofficial currencies.", "disabled": true },
+                { "key": "show_inactive", "value": "false", "description": "Include historical/inactive currencies.", "disabled": true }
+              ]
+            },
+            "description": "Returns a JSON map of all available 3-letter currency codes to full currency names. No App ID required; does not count against your usage quota."
+          }
+        }
+      ]
+    },
+    {
+      "name": "OHLC",
+      "item": [
+        {
+          "name": "Get OHLC rates for a period",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ohlc.json?app_id={{appId}}&start_time=2017-07-17T08:30:00Z&period=30m&symbols=EUR,GBP",
+              "host": ["{{baseUrl}}"],
+              "path": ["ohlc.json"],
+              "query": [
+                { "key": "app_id", "value": "{{appId}}", "description": "Your unique App ID." },
+                { "key": "start_time", "value": "2017-07-17T08:30:00Z", "description": "ISO-8601 UTC start time with zero seconds." },
+                { "key": "period", "value": "30m", "description": "Period interval: 1m, 5m, 15m, 30m, 1h, 12h, 1d, 1w, or 1mo." },
+                { "key": "symbols", "value": "EUR,GBP", "description": "Comma-separated 3-letter codes to limit results.", "disabled": true },
+                { "key": "base", "value": "USD", "description": "Base currency (3-letter code, default USD).", "disabled": true }
+              ]
+            },
+            "description": "Returns open, high, low, close, and time-weighted average rates for a period. Data from December 19th, 2016. VIP Platinum tier only."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Usage",
+      "item": [
+        {
+          "name": "Get account plan and usage statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/usage.json?app_id={{appId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["usage.json"],
+              "query": [
+                { "key": "app_id", "value": "{{appId}}", "description": "Your unique App ID." }
+              ]
+            },
+            "description": "Returns plan information and usage statistics for the App ID - status, plan, quota, update frequency, features, requests made/remaining, and daily average. Does not count against your usage quota."
+          }
+        }
+      ]
+    }
+  ]
+}

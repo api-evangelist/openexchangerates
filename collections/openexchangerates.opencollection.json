@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Exchange Rates API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "app_id",
+      "value": "{{appId}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Latest Rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Get the latest exchange rates.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/latest.json?app_id={{appId}}",
+            "params": [
+              { "name": "app_id", "value": "{{appId}}", "type": "query", "description": "Your unique App ID." },
+              { "name": "base", "value": "USD", "type": "query", "description": "Base currency (default USD; paid plans only)." },
+              { "name": "symbols", "value": "", "type": "query", "description": "Comma-separated 3-letter codes to limit results." },
+              { "name": "show_alternative", "value": "false", "type": "query", "description": "Include alternative, black market, and digital currency rates." }
+            ]
+          },
+          "docs": "Returns the latest exchange rates relative to the base currency (USD by default). Refresh frequency depends on plan - hourly (Free/Developer), 30 minutes (Enterprise), 5 minutes (Unlimited)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Historical Rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Get historical exchange rates for a date.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/historical/:date.json?app_id={{appId}}",
+            "params": [
+              { "name": "date", "value": "2013-02-16", "type": "path", "description": "Requested date in YYYY-MM-DD format (UTC), back to 1999-01-01." },
+              { "name": "app_id", "value": "{{appId}}", "type": "query", "description": "Your unique App ID." },
+              { "name": "base", "value": "USD", "type": "query", "description": "Base currency (Developer plan and above)." },
+              { "name": "symbols", "value": "", "type": "query", "description": "Comma-separated 3-letter codes to limit results." }
+            ]
+          },
+          "docs": "Returns end-of-day exchange rates for the requested UTC date, currently going back to January 1st, 1999."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Time Series",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Get bulk daily rates for a date range.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/time-series.json?app_id={{appId}}&start=2013-01-01&end=2013-01-31",
+            "params": [
+              { "name": "app_id", "value": "{{appId}}", "type": "query", "description": "Your unique App ID." },
+              { "name": "start", "value": "2013-01-01", "type": "query", "description": "Start date (YYYY-MM-DD, inclusive)." },
+              { "name": "end", "value": "2013-01-31", "type": "query", "description": "End date (YYYY-MM-DD, inclusive). Max range is one month." },
+              { "name": "symbols", "value": "", "type": "query", "description": "Recommended to limit results and payload size." },
+              { "name": "base", "value": "USD", "type": "query", "description": "Base currency (default USD)." }
+            ]
+          },
+          "docs": "Returns daily historical rates for a date range (max one month). Each day counts as one API request. Enterprise and Unlimited plans."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Convert",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Convert a value between two currencies.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/convert/:value/:from/:to?app_id={{appId}}",
+            "params": [
+              { "name": "value", "value": "19999", "type": "path", "description": "The value to convert." },
+              { "name": "from", "value": "GBP", "type": "path", "description": "The base (from) currency as a 3-letter code." },
+              { "name": "to", "value": "EUR", "type": "path", "description": "The target (to) currency as a 3-letter code." },
+              { "name": "app_id", "value": "{{appId}}", "type": "query", "description": "Your unique App ID." }
+            ]
+          },
+          "docs": "Converts a value between two currencies at the latest API rates, returning the rate and timestamp used plus the converted amount. Unlimited plan only."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Currencies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Get supported currencies.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/currencies.json",
+            "params": [
+              { "name": "show_alternative", "value": "false", "type": "query", "description": "Include alternative, digital, and unofficial currencies." },
+              { "name": "show_inactive", "value": "false", "type": "query", "description": "Include historical/inactive currencies." }
+            ]
+          },
+          "docs": "Returns a JSON map of all available 3-letter currency codes to full currency names. No App ID required; does not count against your usage quota."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "OHLC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Get OHLC rates for a period.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/ohlc.json?app_id={{appId}}&start_time=2017-07-17T08:30:00Z&period=30m",
+            "params": [
+              { "name": "app_id", "value": "{{appId}}", "type": "query", "description": "Your unique App ID." },
+              { "name": "start_time", "value": "2017-07-17T08:30:00Z", "type": "query", "description": "ISO-8601 UTC start time with zero seconds." },
+              { "name": "period", "value": "30m", "type": "query", "description": "Period interval - 1m, 5m, 15m, 30m, 1h, 12h, 1d, 1w, or 1mo." },
+              { "name": "symbols", "value": "", "type": "query", "description": "Comma-separated 3-letter codes to limit results." },
+              { "name": "base", "value": "USD", "type": "query", "description": "Base currency (default USD)." }
+            ]
+          },
+          "docs": "Returns open, high, low, close, and time-weighted average rates for a period. Data from December 19th, 2016. VIP Platinum tier only."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Get account plan and usage statistics.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/usage.json?app_id={{appId}}",
+            "params": [
+              { "name": "app_id", "value": "{{appId}}", "type": "query", "description": "Your unique App ID." }
+            ]
+          },
+          "docs": "Returns plan information and usage statistics for the App ID - status, plan, quota, update frequency, features, requests made/remaining, and daily average. Does not count against your usage quota."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Open Exchange Rates
+providerId: openexchangerates
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: true
+tags:
+- Foreign Exchange
+- Currency
+- Exchange Rates
+- FX
+- Rate Limiting
+- Quotas
+description: >-
+  Open Exchange Rates governs consumption with monthly request quotas per plan
+  rather than published per-second or per-minute rate caps - 1,000 requests
+  per month on Free, 10,000 on Developer, 100,000 on Enterprise, and unlimited
+  on the Unlimited plan. Effective data freshness is additionally bounded by
+  each plan's rate update frequency (hourly, 30-minute, 5-minute, or up to
+  1-second on VIP), so polling faster than your plan updates returns the same
+  rates. Time-series queries consume one request per day in the requested
+  range; currencies.json and usage.json do not count against the quota. The
+  usage.json endpoint reports requests made, quota, requests remaining, and
+  daily average so clients can monitor consumption programmatically.
+notes: >-
+  No fixed numeric per-minute request cap is documented as of the review
+  date. Exceeding the monthly allowance or calling a feature outside your
+  plan produces JSON errors (for example access_restricted or not_allowed)
+  with 403/429 status codes; accounts over quota are access-restricted until
+  the next cycle or an upgrade.
+sources:
+- https://openexchangerates.org/signup
+- https://docs.openexchangerates.org/reference/api-introduction
+- https://docs.openexchangerates.org/reference/usage-json
+- https://docs.openexchangerates.org/reference/time-series-json
+responseCodes:
+  throttled: 429
+limits:
+- name: Free Plan Monthly Requests
+  scope: account
+  metric: requests
+  limit: 1000 per month
+  notes: Hourly rate updates; USD base currency only.
+- name: Developer Plan Monthly Requests
+  scope: account
+  metric: requests
+  limit: 10000 per month
+  notes: Hourly rate updates; all base currencies.
+- name: Enterprise Plan Monthly Requests
+  scope: account
+  metric: requests
+  limit: 100000 per month
+  notes: 30-minute rate updates; time-series enabled.
+- name: Unlimited Plan Monthly Requests
+  scope: account
+  metric: requests
+  limit: unlimited
+  notes: 5-minute rate updates; conversion enabled.
+- name: Time-Series Request Accounting
+  scope: request
+  metric: requests
+  limit: 1 request per day in range (max one month per query)
+  notes: A 31-day time-series query counts as roughly 31 requests against the quota.
+- name: Per-Minute Request Rate
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate cap is documented; the monthly quota is the governing limit.
+policies:
+- name: Free Metadata Endpoints
+  description: Requests to currencies.json and usage.json do not count towards the account usage limit.
+- name: Update-Frequency Bound
+  description: Rates refresh on a fixed schedule per plan (hourly, 30-minute, 5-minute, or up to 1-second on VIP); cache responses and poll no faster than your plan's update frequency.
+- name: Quota Monitoring
+  description: Poll usage.json (free) to track requests, requests_remaining, days_remaining, and daily_average, and alert before exhausting the monthly allowance.
+- name: Backoff Strategy
+  description: Handle 403 access_restricted and 429 not_allowed JSON errors gracefully, backing off and upgrading the plan or waiting for the next billing cycle when the quota is exhausted.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,152 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Open Exchange Rates
+providerId: openexchangerates
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: true
+tags:
+- Foreign Exchange
+- Currency
+- Exchange Rates
+- FX
+- Plans
+description: >-
+  Open Exchange Rates publishes simple monthly pricing tiers metered on API
+  requests per month, with feature access and rate update frequency tiered by
+  plan. A free-forever plan offers 1,000 requests/month with hourly updates
+  and USD as the only base currency. Paid plans add more requests, faster
+  updates, and features - all base currencies on Developer ($12/mo),
+  time-series on Enterprise ($47/mo), currency conversion on Unlimited
+  ($97/mo), and OHLC/bid-ask/spot data on custom VIP service levels. Annual
+  billing gives two months free per year. Requests to currencies.json and
+  usage.json are free and do not count against the quota; each day in a
+  time-series query counts as one request.
+notes: >-
+  Prices confirmed on the Open Exchange Rates signup page as of 2026-07-11.
+  VIP service levels (including VIP Platinum, required for the OHLC endpoint)
+  are custom-priced with live updates up to every 1 second, bid-ask and
+  midpoint prices, intra-day historical prices, dedicated phone support, and
+  an uptime SLA.
+sources:
+- https://openexchangerates.org/signup
+- https://docs.openexchangerates.org/reference/api-introduction
+- https://docs.openexchangerates.org/reference/time-series-json
+- https://docs.openexchangerates.org/reference/convert
+- https://docs.openexchangerates.org/reference/ohlc-json
+plans:
+- id: openexchangerates-free
+  name: Free
+  type: free
+  description: >-
+    Free-forever plan for prototypes and hobby projects. 1,000 requests per
+    month, hourly rate updates, and USD as the only base currency.
+  entries:
+  - label: API Requests
+    name: free_requests
+    type: usage
+    metric: requests
+    limit: 1000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0 per month
+    userMultiplied: false
+  elements:
+  - name: Hourly Rate Updates
+  - name: USD Base Currency Only
+  - name: Latest and Historical Rates
+- id: openexchangerates-developer
+  name: Developer
+  type: paid
+  description: >-
+    Entry paid plan with 10,000 requests per month, hourly updates, and the
+    ability to change the base currency to any supported currency.
+  entries:
+  - label: API Requests
+    name: developer_requests
+    type: usage
+    metric: requests
+    limit: 10000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $12 per month (two months free with annual billing)
+    userMultiplied: false
+  elements:
+  - name: Hourly Rate Updates
+  - name: All Base Currencies
+  - name: Symbols Filtering
+- id: openexchangerates-enterprise
+  name: Enterprise
+  type: paid
+  description: >-
+    Mid tier with 100,000 requests per month, 30-minute rate updates, and
+    access to bulk time-series requests.
+  entries:
+  - label: API Requests
+    name: enterprise_requests
+    type: usage
+    metric: requests
+    limit: 100000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $47 per month (two months free with annual billing)
+    userMultiplied: false
+  elements:
+  - name: 30-Minute Rate Updates
+  - name: All Base Currencies
+  - name: Time-Series Requests
+- id: openexchangerates-unlimited
+  name: Unlimited
+  type: paid
+  description: >-
+    Top self-serve tier with unlimited requests, 5-minute rate updates, and
+    access to currency conversion requests.
+  entries:
+  - label: API Requests
+    name: unlimited_requests
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $97 per month (two months free with annual billing)
+    userMultiplied: false
+  elements:
+  - name: 5-Minute Rate Updates
+  - name: All Base Currencies
+  - name: Time-Series Requests
+  - name: Currency Conversion Requests
+- id: openexchangerates-vip
+  name: VIP Service Levels
+  type: enterprise
+  description: >-
+    Custom service levels for high-frequency and mission-critical use - live
+    rate updates up to every 1 second, bid-ask and midpoint prices,
+    open-high-low-close-average (OHLC) prices, intra-day historical prices,
+    dedicated phone support, and a guaranteed uptime SLA. The OHLC endpoint
+    requires the VIP Platinum tier.
+  entries:
+  - label: VIP Agreement
+    name: vip
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Up to 1-Second Rate Updates
+  - name: Bid-Ask and Midpoint Prices
+  - name: OHLC Prices
+  - name: Intra-Day Historical Prices
+  - name: Dedicated Phone Support and Uptime SLA
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

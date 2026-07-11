@@ -1,0 +1,86 @@
+aid: openexchangerates
+name: Open Exchange Rates
+review:
+  question: Does Open Exchange Rates expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-11'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Open Exchange Rates' public surface is
+    entirely request/response REST over HTTPS (JSON) - latest.json,
+    historical/{date}.json, time-series.json, convert, currencies.json,
+    ohlc.json, and usage.json. There is no server-push transport (WebSocket or
+    SSE) documented to model. Even the highest VIP tiers, which advertise rate
+    updates as frequent as every 1 second, deliver data through the same
+    polled HTTPS JSON endpoints rather than a streaming socket.
+findings:
+  summary: |
+    Open Exchange Rates does not publish a documented public WebSocket API.
+    The product is a polled HTTPS JSON API served from
+    https://openexchangerates.org/api, authenticated with a per-account App ID
+    (app_id query parameter or Authorization Token header). All documented
+    endpoints are GET request/response - clients fetch the latest rates on
+    their own schedule, bounded by their plan's update frequency (hourly on
+    Free/Developer, 30-minute on Enterprise, 5-minute on Unlimited, up to
+    1-second on VIP). No realtime, bidirectional, or streaming WebSocket
+    (ws:// or wss://) endpoint appears anywhere in the API reference or
+    product pages as of the review date.
+  accessModel: |
+    Every data endpoint requires a registered App ID. Feature access is
+    tiered by plan - base currency change requires any paid plan, time-series
+    requires Enterprise or Unlimited, convert requires Unlimited, and OHLC
+    requires VIP Platinum. currencies.json and usage.json are free calls that
+    do not count against the monthly request quota.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://openexchangerates.org/api
+      documented: true
+      note: All endpoints are GET request/response returning plain-text JSON over HTTPS.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in the Open Exchange Rates API reference, integration guides, or VIP product pages as of the review date. Faster VIP update frequencies are still delivered via polled HTTPS.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events or other HTTP streaming surface is documented.
+  endpointsConfirmedRest:
+    - GET https://openexchangerates.org/api/latest.json
+    - GET https://openexchangerates.org/api/historical/{date}.json
+    - GET https://openexchangerates.org/api/time-series.json
+    - GET https://openexchangerates.org/api/convert/{value}/{from}/{to}
+    - GET https://openexchangerates.org/api/currencies.json
+    - GET https://openexchangerates.org/api/ohlc.json
+    - GET https://openexchangerates.org/api/usage.json
+sources:
+  - url: https://docs.openexchangerates.org/reference/api-introduction
+    type: Documentation
+    note: API introduction confirms responses are delivered over HTTPS as plain-text JSON; base URL https://openexchangerates.org/api; no WebSocket mentioned.
+  - url: https://docs.openexchangerates.org/reference/latest-json
+    type: APIReference
+    note: Latest rates via GET /latest.json with app_id, base, symbols, prettyprint, show_alternative parameters.
+  - url: https://docs.openexchangerates.org/reference/historical-json
+    type: APIReference
+    note: End-of-day historical rates via GET /historical/{date}.json back to 1999-01-01.
+  - url: https://docs.openexchangerates.org/reference/time-series-json
+    type: APIReference
+    note: Bulk daily rates via GET /time-series.json, max one month per query, Enterprise/Unlimited plans.
+  - url: https://docs.openexchangerates.org/reference/convert
+    type: APIReference
+    note: Conversion via GET /convert/{value}/{from}/{to}, Unlimited plan.
+  - url: https://docs.openexchangerates.org/reference/ohlc-json
+    type: APIReference
+    note: OHLC candles via GET /ohlc.json, VIP Platinum tier; still polled HTTPS, not a stream.
+  - url: https://openexchangerates.org/signup
+    type: Pricing
+    note: Published monthly tiers - Free $0 (1,000 req/mo, hourly, USD base), Developer $12 (10,000 req/mo), Enterprise $47 (100,000 req/mo, 30-min updates, time-series), Unlimited $97 (unlimited, 5-min updates, convert), VIP custom (up to 1-second updates, bid-ask, OHLC).
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or other server-push protocol surface exists on the Open
+    Exchange Rates API - the entire product is polled request/response REST
+    over HTTPS. No AsyncAPI document was created because there is no
+    event-driven transport to model.

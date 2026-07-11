@@ -1,0 +1,91 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Open Exchange Rates
+providerId: openexchangerates
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: true
+tags:
+- Foreign Exchange
+- Currency
+- Exchange Rates
+- FX
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Open Exchange Rates spend. Billing is a flat monthly (or
+  discounted annual) subscription per tier rather than pure metered usage -
+  Free at $0 for 1,000 requests/month, Developer at $12 for 10,000, Enterprise
+  at $47 for 100,000, Unlimited at $97 with no request cap, and custom-priced
+  VIP service levels for 1-second updates, bid-ask, and OHLC data. The cost
+  driver is therefore which tier your monthly request volume and required
+  features (base currency change, time-series, convert, OHLC) push you into.
+  Annual billing yields two months free per year.
+notes: >-
+  Watch time-series consumption - each day in a queried range counts as one
+  request, so a daily 31-day time-series job consumes roughly 930+ requests a
+  month on its own. currencies.json and usage.json calls are free, making
+  usage.json the natural zero-cost telemetry feed for spend monitoring.
+sources:
+- https://openexchangerates.org/signup
+- https://docs.openexchangerates.org/reference/usage-json
+- https://docs.openexchangerates.org/reference/time-series-json
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Open Exchange Rates
+serviceCategory: Financial Data and Market Data
+billingModel:
+  pricingCategory: Subscription (Tiered)
+  billingFrequency: Monthly or Annual
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Open Exchange Rates API
+  ServiceCategory: Financial Data and Market Data
+  ProviderName: Open Exchange Rates
+  PublisherName: Open Exchange Rates
+  InvoiceIssuerName: Open Exchange Rates
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: api_requests
+  description: API requests made per month against the plan quota (1,000 / 10,000 / 100,000 / unlimited by tier).
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - app_id
+  - endpoint
+- name: time_series_days
+  description: Days included in time-series queries; each day in a requested range counts as one API request.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - app_id
+- name: subscription_fee
+  description: Flat monthly subscription per tier ($0 / $12 / $47 / $97, VIP custom); two months free with annual billing.
+  unit: months
+  aggregation: sum
+  dimensions:
+  - plan
+principles:
+- name: Visibility
+  description: Poll the free usage.json endpoint to track requests, requests_remaining, and daily_average per App ID, and forecast month-end volume against the plan quota.
+- name: Allocation
+  description: Use separate App IDs per application or team where practical so request volume maps to internal cost centers.
+- name: Optimization
+  description: Cache responses and poll no faster than the plan's rate update frequency; use symbols filtering to shrink payloads; scope time-series ranges tightly since each day is a billed request; right-size the tier to actual monthly volume and required features, and take annual billing for two months free.
+- name: Accountability
+  description: Assign an owner per App ID; review monthly request volume and feature needs (base, time-series, convert, OHLC) against tier boundaries before renewing or upgrading.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

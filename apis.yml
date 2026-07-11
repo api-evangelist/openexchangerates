@@ -1,0 +1,171 @@
+aid: openexchangerates
+url: https://raw.githubusercontent.com/api-evangelist/openexchangerates/refs/heads/main/apis.yml
+name: Open Exchange Rates
+kind: company
+description: Open Exchange Rates provides a simple, reliable REST API for live and
+  historical foreign exchange (forex) rates covering 200+ world currencies, with
+  end-of-day historical data back to January 1st, 1999. The JSON API delivers
+  latest rates, historical snapshots, bulk time-series, currency conversion, and
+  OHLC data, authenticated with a per-account App ID and priced in published
+  monthly tiers that start with a free plan.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Foreign Exchange
+- Currency
+- Exchange Rates
+- FX
+- Currency Conversion
+- Forex
+- Financial Data
+created: '2026-07-11'
+modified: '2026-07-11'
+specificationVersion: '0.19'
+apis:
+- aid: openexchangerates:openexchangerates-latest-rates-api
+  name: Open Exchange Rates Latest Rates API
+  tags:
+  - Foreign Exchange
+  - Exchange Rates
+  - Live Rates
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openexchangerates.org/reference/latest-json
+  baseURL: https://openexchangerates.org/api
+  properties:
+  - url: https://docs.openexchangerates.org/reference/api-introduction
+    type: Documentation
+  - url: https://docs.openexchangerates.org/reference/latest-json
+    type: APIReference
+  - url: openapi/openexchangerates-openapi.yml
+    type: OpenAPI
+  description: Get the latest exchange rates for 200+ world currencies from
+    GET /latest.json, relative to a base currency (USD by default; changing the
+    base requires a paid plan). Rates refresh hourly on the Free and Developer
+    plans, every 30 minutes on Enterprise, and every 5 minutes on Unlimited.
+- aid: openexchangerates:openexchangerates-historical-rates-api
+  name: Open Exchange Rates Historical Rates API
+  tags:
+  - Foreign Exchange
+  - Historical Rates
+  - Exchange Rates
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openexchangerates.org/reference/historical-json
+  baseURL: https://openexchangerates.org/api
+  properties:
+  - url: https://docs.openexchangerates.org/reference/historical-json
+    type: APIReference
+  - url: openapi/openexchangerates-openapi.yml
+    type: OpenAPI
+  description: Get end-of-day foreign exchange rates for any UTC date back to
+    January 1st, 1999 from GET /historical/{date}.json. Base currency and
+    symbols filtering are available on the Developer, Enterprise, and Unlimited
+    plans.
+- aid: openexchangerates:openexchangerates-time-series-api
+  name: Open Exchange Rates Time Series API
+  tags:
+  - Foreign Exchange
+  - Time Series
+  - Exchange Rates
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openexchangerates.org/reference/time-series-json
+  baseURL: https://openexchangerates.org/api
+  properties:
+  - url: https://docs.openexchangerates.org/reference/time-series-json
+    type: APIReference
+  - url: openapi/openexchangerates-openapi.yml
+    type: OpenAPI
+  description: Get bulk daily historical exchange rates for a given start and
+    end date (maximum one month per query) from GET /time-series.json. Each day
+    in the range counts as one API request. Available on the Enterprise and
+    Unlimited plans.
+- aid: openexchangerates:openexchangerates-convert-api
+  name: Open Exchange Rates Convert API
+  tags:
+  - Currency Conversion
+  - Foreign Exchange
+  - FX
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openexchangerates.org/reference/convert
+  baseURL: https://openexchangerates.org/api
+  properties:
+  - url: https://docs.openexchangerates.org/reference/convert
+    type: APIReference
+  - url: openapi/openexchangerates-openapi.yml
+    type: OpenAPI
+  description: Convert any monetary value from one currency to another at the
+    latest API rates via GET /convert/{value}/{from}/{to}, returning the
+    exchange rate used, the timestamp, and the converted amount. Available on
+    the Unlimited plan.
+- aid: openexchangerates:openexchangerates-currencies-api
+  name: Open Exchange Rates Currencies API
+  tags:
+  - Currency
+  - Reference Data
+  - ISO 4217
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openexchangerates.org/reference/currencies-json
+  baseURL: https://openexchangerates.org/api
+  properties:
+  - url: https://docs.openexchangerates.org/reference/currencies-json
+    type: APIReference
+  - url: openapi/openexchangerates-openapi.yml
+    type: OpenAPI
+  description: Get the list of all currency symbols available through the API
+    as a JSON map of 3-letter codes to full currency names from
+    GET /currencies.json, with options to include alternative, digital, and
+    inactive currencies. Requests to this endpoint do not count against your
+    usage quota.
+- aid: openexchangerates:openexchangerates-ohlc-api
+  name: Open Exchange Rates OHLC API
+  tags:
+  - OHLC
+  - Foreign Exchange
+  - Market Data
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openexchangerates.org/reference/ohlc-json
+  baseURL: https://openexchangerates.org/api
+  properties:
+  - url: https://docs.openexchangerates.org/reference/ohlc-json
+    type: APIReference
+  - url: openapi/openexchangerates-openapi.yml
+    type: OpenAPI
+  description: Get open, high, low, close, and time-weighted average exchange
+    rates for a given period (1m to 1mo) from GET /ohlc.json, with data
+    available from December 19th, 2016. Restricted to the VIP Platinum tier.
+- aid: openexchangerates:openexchangerates-usage-api
+  name: Open Exchange Rates Usage API
+  tags:
+  - Usage
+  - Account
+  - Quotas
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openexchangerates.org/reference/usage-json
+  baseURL: https://openexchangerates.org/api
+  properties:
+  - url: https://docs.openexchangerates.org/reference/usage-json
+    type: APIReference
+  - url: openapi/openexchangerates-openapi.yml
+    type: OpenAPI
+  description: Get plan information and usage statistics for your App ID from
+    GET /usage.json - account status, plan name, quota, update frequency,
+    enabled features, requests made, requests remaining, and daily average.
+    Requests to this endpoint do not count against your usage quota.
+common:
+- type: GitHubOrganization
+  url: https://github.com/openexchangerates
+- type: LinkedIn
+  url: https://www.linkedin.com/company/open-exchange-rates
+- type: Website
+  url: https://openexchangerates.org
+- type: Documentation
+  url: https://docs.openexchangerates.org
+- type: Pricing
+  url: https://openexchangerates.org/signup
+- type: Plans
+  url: plans/openexchangerates-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/openexchangerates-rate-limits.yml
+- type: FinOps
+  url: finops/openexchangerates-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
