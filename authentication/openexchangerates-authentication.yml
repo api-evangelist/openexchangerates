@@ -1,0 +1,24 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/openexchangerates-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  - query
+schemes:
+- name: appIdQuery
+  type: apiKey
+  in: query
+  parameter: app_id
+  description: Your unique App ID, passed as a query parameter.
+  sources:
+  - openapi/openexchangerates-openapi.yml
+- name: appIdHeader
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: 'Your unique App ID, passed as a header: Authorization: Token YOUR_APP_ID.'
+  sources:
+  - openapi/openexchangerates-openapi.yml

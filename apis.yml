@@ -150,6 +150,10 @@ apis:
     enabled features, requests made, requests remaining, and daily average.
     Requests to this endpoint do not count against your usage quota.
 common:
+- type: DomainSecurity
+  url: security/openexchangerates-domain-security.yml
+- type: Authentication
+  url: authentication/openexchangerates-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/openexchangerates
 - type: LinkedIn
