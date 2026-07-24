@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: Open Exchange Rates Convert Currencies API
+  description: 'The Open Exchange Rates API provides live and historical foreign exchange (forex) rates for 200+ world currencies as plain-text JSON over HTTPS. Endpoints cover the latest rates, end-of-day historical rates back to January 1st, 1999, bulk time-series, currency conversion, OHLC candles, and account usage. Every data request requires an App ID, passed as the app_id query parameter or an "Authorization: Token YOUR_APP_ID" header. Feature access is tiered by plan - changing the base currency requires a paid plan, time-series requires Enterprise or Unlimited, convert requires Unlimited, and OHLC requires the VIP Platinum tier. Requests to currencies.json and usage.json do not count against your monthly quota.'
+  version: '1.0'
+  contact:
+    name: Open Exchange Rates
+    url: https://openexchangerates.org
+  termsOfService: https://openexchangerates.org/terms
+servers:
+- url: https://openexchangerates.org/api
+  description: Production
+security:
+- appIdQuery: []
+- appIdHeader: []
+tags:
+- name: Currencies
+  description: List of supported currency symbols and names.
+paths:
+  /currencies.json:
+    get:
+      operationId: getCurrencies
+      tags:
+      - Currencies
+      summary: Get supported currencies
+      description: Returns a JSON map of all 3-letter currency codes available through the API to their full names. Requests to this endpoint do not require authentication and do not count against your account usage limit. Alternative currencies may not follow standard three-letter code formatting.
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/ShowAlternative'
+      - name: show_inactive
+        in: query
+        required: false
+        description: Set to true to include historical/inactive currencies.
+        schema:
+          type: boolean
+          default: false
+      - $ref: '#/components/parameters/PrettyPrint'
+      responses:
+        '200':
+          description: A map of currency codes to full currency names.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+              example:
+                AED: United Arab Emirates Dirham
+                EUR: Euro
+                GBP: British Pound Sterling
+                USD: United States Dollar
+                VND: Vietnamese Dong
+components:
+  parameters:
+    ShowAlternative:
+      name: show_alternative
+      in: query
+      required: false
+      description: Set to true to extend returned values with alternative, black market, and digital currency rates.
+      schema:
+        type: boolean
+        default: false
+    PrettyPrint:
+      name: prettyprint
+      in: query
+      required: false
+      description: Set to true for human-readable response formatting.
+      schema:
+        type: boolean
+        default: false
+  securitySchemes:
+    appIdQuery:
+      type: apiKey
+      in: query
+      name: app_id
+      description: Your unique App ID, passed as a query parameter.
+    appIdHeader:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Your unique App ID, passed as a header: Authorization: Token YOUR_APP_ID.'

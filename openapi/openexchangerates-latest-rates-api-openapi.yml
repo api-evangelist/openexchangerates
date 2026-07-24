@@ -1,0 +1,165 @@
+openapi: 3.0.3
+info:
+  title: Open Exchange Rates Convert Latest Rates API
+  description: 'The Open Exchange Rates API provides live and historical foreign exchange (forex) rates for 200+ world currencies as plain-text JSON over HTTPS. Endpoints cover the latest rates, end-of-day historical rates back to January 1st, 1999, bulk time-series, currency conversion, OHLC candles, and account usage. Every data request requires an App ID, passed as the app_id query parameter or an "Authorization: Token YOUR_APP_ID" header. Feature access is tiered by plan - changing the base currency requires a paid plan, time-series requires Enterprise or Unlimited, convert requires Unlimited, and OHLC requires the VIP Platinum tier. Requests to currencies.json and usage.json do not count against your monthly quota.'
+  version: '1.0'
+  contact:
+    name: Open Exchange Rates
+    url: https://openexchangerates.org
+  termsOfService: https://openexchangerates.org/terms
+servers:
+- url: https://openexchangerates.org/api
+  description: Production
+security:
+- appIdQuery: []
+- appIdHeader: []
+tags:
+- name: Latest Rates
+  description: Current exchange rates relative to a base currency.
+paths:
+  /latest.json:
+    get:
+      operationId: getLatestRates
+      tags:
+      - Latest Rates
+      summary: Get the latest exchange rates
+      description: Returns the latest exchange rates available from the Open Exchange Rates API, relative to the base currency (USD by default). Rates refresh hourly on the Free and Developer plans, every 30 minutes on Enterprise, and every 5 minutes on Unlimited.
+      parameters:
+      - $ref: '#/components/parameters/Base'
+      - $ref: '#/components/parameters/Symbols'
+      - $ref: '#/components/parameters/ShowAlternative'
+      - $ref: '#/components/parameters/PrettyPrint'
+      responses:
+        '200':
+          description: The latest exchange rates relative to the base currency.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rates'
+              example:
+                disclaimer: Usage subject to terms - https://openexchangerates.org/terms
+                license: https://openexchangerates.org/license
+                timestamp: 1449877801
+                base: USD
+                rates:
+                  EUR: 0.913492
+                  GBP: 0.662839
+                  JPY: 111.7962
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/AccessRestricted'
+        '429':
+          $ref: '#/components/responses/NotAllowed'
+components:
+  parameters:
+    Base:
+      name: base
+      in: query
+      required: false
+      description: Change the base currency to which all rates are relative, as a 3-letter currency code. Defaults to USD. Changing the base currency requires a paid plan.
+      schema:
+        type: string
+        default: USD
+        example: EUR
+    Symbols:
+      name: symbols
+      in: query
+      required: false
+      description: Limit results to specific currencies as a comma-separated list of 3-letter currency codes.
+      schema:
+        type: string
+        example: EUR,GBP,JPY
+    PrettyPrint:
+      name: prettyprint
+      in: query
+      required: false
+      description: Set to true for human-readable response formatting.
+      schema:
+        type: boolean
+        default: false
+    ShowAlternative:
+      name: show_alternative
+      in: query
+      required: false
+      description: Set to true to extend returned values with alternative, black market, and digital currency rates.
+      schema:
+        type: boolean
+        default: false
+  schemas:
+    Rates:
+      type: object
+      properties:
+        disclaimer:
+          type: string
+          description: Standard usage disclaimer.
+        license:
+          type: string
+          description: Link to the data license.
+        timestamp:
+          type: integer
+          format: int64
+          description: UNIX time (seconds) when the rates were published. Multiply by 1000 for JavaScript milliseconds.
+        base:
+          type: string
+          description: The 3-letter code of the base currency the rates are relative to.
+        rates:
+          type: object
+          description: Exchange rates keyed by 3-letter currency code, each relative to 1 unit of the base currency.
+          additionalProperties:
+            type: number
+            format: double
+    Error:
+      type: object
+      properties:
+        error:
+          type: boolean
+        status:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A machine-readable error code such as invalid_app_id or access_restricted.
+        description:
+          type: string
+          description: A human-readable explanation of the error.
+  responses:
+    NotAllowed:
+      description: The monthly usage allowance was exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The App ID was missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: true
+            status: 401
+            message: invalid_app_id
+            description: Invalid App ID provided - please sign up at https://openexchangerates.org/signup
+    AccessRestricted:
+      description: Access restricted, such as a feature not included in the current plan.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: true
+            status: 403
+            message: access_restricted
+            description: Access restricted for the requested feature - please upgrade your plan.
+  securitySchemes:
+    appIdQuery:
+      type: apiKey
+      in: query
+      name: app_id
+      description: Your unique App ID, passed as a query parameter.
+    appIdHeader:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Your unique App ID, passed as a header: Authorization: Token YOUR_APP_ID.'

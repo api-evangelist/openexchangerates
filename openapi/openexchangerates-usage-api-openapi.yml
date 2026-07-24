@@ -1,0 +1,147 @@
+openapi: 3.0.3
+info:
+  title: Open Exchange Rates Convert Usage API
+  description: 'The Open Exchange Rates API provides live and historical foreign exchange (forex) rates for 200+ world currencies as plain-text JSON over HTTPS. Endpoints cover the latest rates, end-of-day historical rates back to January 1st, 1999, bulk time-series, currency conversion, OHLC candles, and account usage. Every data request requires an App ID, passed as the app_id query parameter or an "Authorization: Token YOUR_APP_ID" header. Feature access is tiered by plan - changing the base currency requires a paid plan, time-series requires Enterprise or Unlimited, convert requires Unlimited, and OHLC requires the VIP Platinum tier. Requests to currencies.json and usage.json do not count against your monthly quota.'
+  version: '1.0'
+  contact:
+    name: Open Exchange Rates
+    url: https://openexchangerates.org
+  termsOfService: https://openexchangerates.org/terms
+servers:
+- url: https://openexchangerates.org/api
+  description: Production
+security:
+- appIdQuery: []
+- appIdHeader: []
+tags:
+- name: Usage
+  description: Account plan and usage statistics.
+paths:
+  /usage.json:
+    get:
+      operationId: getUsage
+      tags:
+      - Usage
+      summary: Get account plan and usage statistics
+      description: Returns basic plan information and usage statistics for the given App ID - account status, plan name, quota, update frequency, enabled features, requests made this month, requests remaining, days elapsed and remaining, and daily average. Requests to this endpoint do not count against your usage volume.
+      parameters:
+      - $ref: '#/components/parameters/PrettyPrint'
+      responses:
+        '200':
+          description: Plan and usage details for the App ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Usage:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        data:
+          type: object
+          properties:
+            app_id:
+              type: string
+              description: The App ID the statistics relate to.
+            status:
+              type: string
+              description: Account status, such as active or access_restricted.
+            plan:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The current subscription tier.
+                quota:
+                  type: string
+                  description: Monthly request allowance in display format.
+                update_frequency:
+                  type: string
+                  description: How often rates refresh on this plan.
+                features:
+                  type: object
+                  description: Feature flags enabled on this plan.
+                  properties:
+                    base:
+                      type: boolean
+                    symbols:
+                      type: boolean
+                    experimental:
+                      type: boolean
+                    time-series:
+                      type: boolean
+                    convert:
+                      type: boolean
+            usage:
+              type: object
+              properties:
+                requests:
+                  type: integer
+                  description: Requests made in the current month.
+                requests_quota:
+                  type: integer
+                  description: The monthly request limit.
+                requests_remaining:
+                  type: integer
+                  description: Requests remaining this month.
+                days_elapsed:
+                  type: integer
+                  description: Days since the current billing month began.
+                days_remaining:
+                  type: integer
+                  description: Days until the next billing cycle.
+                daily_average:
+                  type: integer
+                  description: Average daily request volume this month.
+    Error:
+      type: object
+      properties:
+        error:
+          type: boolean
+        status:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A machine-readable error code such as invalid_app_id or access_restricted.
+        description:
+          type: string
+          description: A human-readable explanation of the error.
+  responses:
+    Unauthorized:
+      description: The App ID was missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: true
+            status: 401
+            message: invalid_app_id
+            description: Invalid App ID provided - please sign up at https://openexchangerates.org/signup
+  parameters:
+    PrettyPrint:
+      name: prettyprint
+      in: query
+      required: false
+      description: Set to true for human-readable response formatting.
+      schema:
+        type: boolean
+        default: false
+  securitySchemes:
+    appIdQuery:
+      type: apiKey
+      in: query
+      name: app_id
+      description: Your unique App ID, passed as a query parameter.
+    appIdHeader:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Your unique App ID, passed as a header: Authorization: Token YOUR_APP_ID.'

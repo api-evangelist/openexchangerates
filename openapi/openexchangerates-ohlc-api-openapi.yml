@@ -1,0 +1,211 @@
+openapi: 3.0.3
+info:
+  title: Open Exchange Rates Convert OHLC API
+  description: 'The Open Exchange Rates API provides live and historical foreign exchange (forex) rates for 200+ world currencies as plain-text JSON over HTTPS. Endpoints cover the latest rates, end-of-day historical rates back to January 1st, 1999, bulk time-series, currency conversion, OHLC candles, and account usage. Every data request requires an App ID, passed as the app_id query parameter or an "Authorization: Token YOUR_APP_ID" header. Feature access is tiered by plan - changing the base currency requires a paid plan, time-series requires Enterprise or Unlimited, convert requires Unlimited, and OHLC requires the VIP Platinum tier. Requests to currencies.json and usage.json do not count against your monthly quota.'
+  version: '1.0'
+  contact:
+    name: Open Exchange Rates
+    url: https://openexchangerates.org
+  termsOfService: https://openexchangerates.org/terms
+servers:
+- url: https://openexchangerates.org/api
+  description: Production
+security:
+- appIdQuery: []
+- appIdHeader: []
+tags:
+- name: OHLC
+  description: Open, high, low, close, and average rates for a period.
+paths:
+  /ohlc.json:
+    get:
+      operationId: getOhlc
+      tags:
+      - OHLC
+      summary: Get OHLC rates for a period
+      description: Returns open, high, low, close, and time-weighted average exchange rates for a given period. Data is available from December 19th, 2016. The start time must be an ISO-8601 UTC timestamp with zero seconds, aligned to the requested period, and the resulting end time cannot be in the future. Available to clients of the VIP Platinum tier.
+      parameters:
+      - name: start_time
+        in: query
+        required: true
+        description: ISO-8601 UTC timestamp marking the start of the requested period, for example 2017-07-17T08:30:00Z. Seconds must be zero.
+        schema:
+          type: string
+          format: date-time
+          example: '2017-07-17T08:30:00Z'
+      - name: period
+        in: query
+        required: true
+        description: The requested period interval.
+        schema:
+          type: string
+          enum:
+          - 1m
+          - 5m
+          - 15m
+          - 30m
+          - 1h
+          - 12h
+          - 1d
+          - 1w
+          - 1mo
+      - $ref: '#/components/parameters/Base'
+      - $ref: '#/components/parameters/Symbols'
+      - $ref: '#/components/parameters/PrettyPrint'
+      responses:
+        '200':
+          description: OHLC and average rates per currency for the period.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ohlc'
+              example:
+                disclaimer: Usage subject to terms - https://openexchangerates.org/terms
+                license: https://openexchangerates.org/license
+                start_time: '2017-07-17T08:30:00Z'
+                end_time: '2017-07-17T08:35:00Z'
+                base: USD
+                rates:
+                  EUR:
+                    open: 0.872674
+                    high: 0.872674
+                    low: 0.87254
+                    close: 0.87254
+                    average: 0.872598
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/AccessRestricted'
+        '429':
+          $ref: '#/components/responses/NotAllowed'
+components:
+  parameters:
+    Base:
+      name: base
+      in: query
+      required: false
+      description: Change the base currency to which all rates are relative, as a 3-letter currency code. Defaults to USD. Changing the base currency requires a paid plan.
+      schema:
+        type: string
+        default: USD
+        example: EUR
+    Symbols:
+      name: symbols
+      in: query
+      required: false
+      description: Limit results to specific currencies as a comma-separated list of 3-letter currency codes.
+      schema:
+        type: string
+        example: EUR,GBP,JPY
+    PrettyPrint:
+      name: prettyprint
+      in: query
+      required: false
+      description: Set to true for human-readable response formatting.
+      schema:
+        type: boolean
+        default: false
+  responses:
+    NotAllowed:
+      description: The monthly usage allowance was exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The App ID was missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: true
+            status: 401
+            message: invalid_app_id
+            description: Invalid App ID provided - please sign up at https://openexchangerates.org/signup
+    BadRequest:
+      description: The request was invalid, such as an invalid date or parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    AccessRestricted:
+      description: Access restricted, such as a feature not included in the current plan.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: true
+            status: 403
+            message: access_restricted
+            description: Access restricted for the requested feature - please upgrade your plan.
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: boolean
+        status:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A machine-readable error code such as invalid_app_id or access_restricted.
+        description:
+          type: string
+          description: A human-readable explanation of the error.
+    Ohlc:
+      type: object
+      properties:
+        disclaimer:
+          type: string
+        license:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        base:
+          type: string
+        rates:
+          type: object
+          description: OHLC data keyed by 3-letter currency code.
+          additionalProperties:
+            type: object
+            properties:
+              open:
+                type: number
+                format: double
+                description: The exchange rate at the start of the period.
+              high:
+                type: number
+                format: double
+                description: The highest exchange rate during the period.
+              low:
+                type: number
+                format: double
+                description: The lowest exchange rate during the period.
+              close:
+                type: number
+                format: double
+                description: The exchange rate at the end of the period.
+              average:
+                type: number
+                format: double
+                description: The time-weighted mean rate for the period.
+  securitySchemes:
+    appIdQuery:
+      type: apiKey
+      in: query
+      name: app_id
+      description: Your unique App ID, passed as a query parameter.
+    appIdHeader:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Your unique App ID, passed as a header: Authorization: Token YOUR_APP_ID.'
