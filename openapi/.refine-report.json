@@ -1,0 +1,26 @@
+{
+  "provider": "openexchangerates",
+  "sources": [
+    "openexchangerates-convert-api-openapi.yml",
+    "openexchangerates-currencies-api-openapi.yml",
+    "openexchangerates-historical-rates-api-openapi.yml",
+    "openexchangerates-latest-rates-api-openapi.yml",
+    "openexchangerates-ohlc-api-openapi.yml",
+    "openexchangerates-time-series-api-openapi.yml",
+    "openexchangerates-usage-api-openapi.yml"
+  ],
+  "outputs": [
+    "openexchangerates-convert-api-openapi.yml",
+    "openexchangerates-currencies-api-openapi.yml",
+    "openexchangerates-historical-rates-api-openapi.yml",
+    "openexchangerates-latest-rates-api-openapi.yml",
+    "openexchangerates-ohlc-api-openapi.yml",
+    "openexchangerates-time-series-api-openapi.yml",
+    "openexchangerates-usage-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
