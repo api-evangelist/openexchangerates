@@ -1,0 +1,413 @@
+{
+  "info": {
+    "_postman_id": "a772f2d0-8c36-47d0-94ee-1d5ee8158011",
+    "name": "Open Exchange Rates Convert Time Series API",
+    "description": "RESTful JSON API delivering live and historical foreign exchange rates for 200+ world and digital currencies. Supports latest rates, historical end-of-day rates, time-series queries, currency conversion, and OHLC data depending on subscription plan. Trusted by over 100,000 organizations globally since 2011, with historical coverage back to January 1, 1999.\n\n\nContact Support:\n Name: Open Exchange Rates Support\n Email: support@openexchangerates.org",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:25:28.000Z",
+    "updatedAt": "2026-07-28T02:25:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a772f2d0-8c36-47d0-94ee-1d5ee8158011"
+  },
+  "item": [
+    {
+      "name": "time-series.json",
+      "item": [
+        {
+          "name": "Get time-series exchange rates",
+          "id": "439c075e-4d0b-4abe-b5da-1b6c949599c3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/time-series.json?app_id=<string>&start=<date>&end=<date>&symbols=<string>&base=<string>&show_alternative=false&prettyprint=false",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "time-series.json"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Your unique App ID for authentication",
+                  "key": "app_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Start date for the time series (YYYY-MM-DD format)",
+                  "key": "start",
+                  "value": "<date>"
+                },
+                {
+                  "description": "(Required) End date for the time series (YYYY-MM-DD format)",
+                  "key": "end",
+                  "value": "<date>"
+                },
+                {
+                  "description": "Comma-separated 3-letter currency codes to limit results",
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Base currency (3-letter ISO code, defaults to USD)",
+                  "key": "base",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                  "key": "show_alternative",
+                  "value": "false"
+                },
+                {
+                  "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                  "key": "prettyprint",
+                  "value": "false"
+                }
+              ]
+            },
+            "description": "Returns historical exchange rates for a given time period (date range). Rates are provided per day between start and end dates. Available to Enterprise and Unlimited plan subscribers.\n"
+          },
+          "response": [
+            {
+              "id": "164d444f-f737-4cbf-ad91-d056e95feaa7",
+              "name": "Successful response with time-series exchange rates",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/time-series.json?app_id=<API Key>&start=<date>&end=<date>&symbols=<string>&base=<string>&show_alternative=false&prettyprint=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "time-series.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Start date for the time series (YYYY-MM-DD format)",
+                      "key": "start",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "(Required) End date for the time series (YYYY-MM-DD format)",
+                      "key": "end",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Comma-separated 3-letter currency codes to limit results",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Base currency (3-letter ISO code, defaults to USD)",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"disclaimer\": \"<string>\",\n  \"license\": \"<string>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"base\": \"<string>\",\n  \"rates\": {\n    \"id70\": {\n      \"estdd\": \"<double>\",\n      \"proident74\": \"<double>\"\n    },\n    \"reprehenderit0\": {\n      \"sit_63a\": \"<double>\"\n    }\n  }\n}",
+              "createdAt": "2026-07-28T02:25:28.000Z",
+              "updatedAt": "2026-07-28T02:25:28.000Z",
+              "uid": "35240-164d444f-f737-4cbf-ad91-d056e95feaa7"
+            },
+            {
+              "id": "97f3f311-9da6-4eb3-855e-a0527a2ffbd7",
+              "name": "Bad request \u2014 invalid parameters or unavailable data",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/time-series.json?app_id=<API Key>&start=<date>&end=<date>&symbols=<string>&base=<string>&show_alternative=false&prettyprint=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "time-series.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Start date for the time series (YYYY-MM-DD format)",
+                      "key": "start",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "(Required) End date for the time series (YYYY-MM-DD format)",
+                      "key": "end",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Comma-separated 3-letter currency codes to limit results",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Base currency (3-letter ISO code, defaults to USD)",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:25:28.000Z",
+              "updatedAt": "2026-07-28T02:25:28.000Z",
+              "uid": "35240-97f3f311-9da6-4eb3-855e-a0527a2ffbd7"
+            },
+            {
+              "id": "0fb9fae5-c45f-4eb4-9b64-965310e36e41",
+              "name": "Unauthorized \u2014 missing or invalid App ID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/time-series.json?app_id=<API Key>&start=<date>&end=<date>&symbols=<string>&base=<string>&show_alternative=false&prettyprint=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "time-series.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Start date for the time series (YYYY-MM-DD format)",
+                      "key": "start",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "(Required) End date for the time series (YYYY-MM-DD format)",
+                      "key": "end",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Comma-separated 3-letter currency codes to limit results",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Base currency (3-letter ISO code, defaults to USD)",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:25:28.000Z",
+              "updatedAt": "2026-07-28T02:25:28.000Z",
+              "uid": "35240-0fb9fae5-c45f-4eb4-9b64-965310e36e41"
+            },
+            {
+              "id": "07352c62-1fd8-424e-8285-493d61876793",
+              "name": "Too many requests \u2014 rate limit or quota exceeded",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/time-series.json?app_id=<API Key>&start=<date>&end=<date>&symbols=<string>&base=<string>&show_alternative=false&prettyprint=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "time-series.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Start date for the time series (YYYY-MM-DD format)",
+                      "key": "start",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "(Required) End date for the time series (YYYY-MM-DD format)",
+                      "key": "end",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Comma-separated 3-letter currency codes to limit results",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Base currency (3-letter ISO code, defaults to USD)",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:25:28.000Z",
+              "updatedAt": "2026-07-28T02:25:28.000Z",
+              "uid": "35240-07352c62-1fd8-424e-8285-493d61876793"
+            }
+          ],
+          "createdAt": "2026-07-28T02:25:28.000Z",
+          "updatedAt": "2026-07-28T02:25:28.000Z",
+          "uid": "35240-439c075e-4d0b-4abe-b5da-1b6c949599c3"
+        }
+      ],
+      "id": "23c9a6ee-ff6f-452a-8857-c8836c97e88a",
+      "createdAt": "2026-07-28T02:25:28.000Z",
+      "updatedAt": "2026-07-28T02:25:28.000Z",
+      "uid": "35240-23c9a6ee-ff6f-452a-8857-c8836c97e88a"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "app_id",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://openexchangerates.org/api"
+    }
+  ]
+}

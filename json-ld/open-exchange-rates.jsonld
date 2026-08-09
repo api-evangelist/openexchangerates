@@ -1,0 +1,147 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "fibo": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialPrices/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "disclaimer": "dcterms:rights",
+    "license": {
+      "@id": "dcterms:license",
+      "@type": "@id"
+    },
+    "timestamp": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:integer"
+    },
+    "base": {
+      "@id": "fibo:hasBaseCurrency",
+      "@type": "xsd:string"
+    },
+    "rates": {
+      "@id": "fibo:hasExchangeRate",
+      "@container": "@index"
+    },
+    "ExchangeRatesResponse": {
+      "@id": "fibo:ExchangeRate"
+    },
+    "CurrencyConversion": {
+      "@id": "fibo:CurrencyConversion"
+    },
+    "from": {
+      "@id": "fibo:hasSourceCurrency"
+    },
+    "to": {
+      "@id": "fibo:hasTargetCurrency"
+    },
+    "amount": {
+      "@id": "schema:price",
+      "@type": "xsd:number"
+    },
+    "rate": {
+      "@id": "fibo:hasRate",
+      "@type": "xsd:number"
+    },
+    "open": {
+      "@id": "fibo:hasOpeningPrice",
+      "@type": "xsd:number"
+    },
+    "high": {
+      "@id": "fibo:hasHighPrice",
+      "@type": "xsd:number"
+    },
+    "low": {
+      "@id": "fibo:hasLowPrice",
+      "@type": "xsd:number"
+    },
+    "close": {
+      "@id": "fibo:hasClosingPrice",
+      "@type": "xsd:number"
+    },
+    "average": {
+      "@id": "fibo:hasAveragePrice",
+      "@type": "xsd:number"
+    },
+    "start_date": {
+      "@id": "schema:startDate",
+      "@type": "xsd:date"
+    },
+    "end_date": {
+      "@id": "schema:endDate",
+      "@type": "xsd:date"
+    },
+    "start_time": {
+      "@id": "schema:startDate",
+      "@type": "xsd:dateTime"
+    },
+    "end_time": {
+      "@id": "schema:endDate",
+      "@type": "xsd:dateTime"
+    },
+    "plan": {
+      "@id": "schema:Offer"
+    },
+    "quota": {
+      "@id": "schema:eligibleQuantity"
+    },
+    "requests": {
+      "@id": "schema:numAdults"
+    },
+    "status": {
+      "@id": "schema:status"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "https://openexchangerates.org/api",
+      "@type": "schema:WebAPI",
+      "schema:name": "Open Exchange Rates API",
+      "schema:description": "RESTful JSON API delivering live and historical foreign exchange rates for 200+ world and digital currencies. Supports latest rates, historical end-of-day rates, time-series queries, currency conversion, and OHLC data depending on subscription plan.",
+      "schema:url": "https://openexchangerates.org",
+      "schema:documentation": "https://docs.openexchangerates.org/reference/api-introduction",
+      "schema:termsOfService": "https://openexchangerates.org/terms",
+      "schema:provider": {
+        "@type": "schema:Organization",
+        "schema:name": "Open Exchange Rates",
+        "schema:url": "https://openexchangerates.org",
+        "schema:contactPoint": {
+          "@type": "schema:ContactPoint",
+          "schema:email": "support@openexchangerates.org",
+          "schema:url": "https://support.openexchangerates.org"
+        }
+      },
+      "schema:offers": [
+        {
+          "@type": "schema:Offer",
+          "schema:name": "Free",
+          "schema:description": "1,000 requests/month, hourly updates, USD base only",
+          "schema:url": "https://openexchangerates.org/signup/free"
+        },
+        {
+          "@type": "schema:Offer",
+          "schema:name": "Developer",
+          "schema:description": "10,000 requests/month, 30-minute updates",
+          "schema:url": "https://openexchangerates.org/signup"
+        },
+        {
+          "@type": "schema:Offer",
+          "schema:name": "Enterprise",
+          "schema:description": "100,000 requests/month, 5-minute updates, time-series access",
+          "schema:url": "https://openexchangerates.org/signup"
+        },
+        {
+          "@type": "schema:Offer",
+          "schema:name": "Unlimited",
+          "schema:description": "Unlimited requests, 1-minute updates, convert endpoint",
+          "schema:url": "https://openexchangerates.org/signup"
+        }
+      ]
+    }
+  ]
+}

@@ -2,12 +2,11 @@ aid: openexchangerates
 url: https://raw.githubusercontent.com/api-evangelist/openexchangerates/refs/heads/main/apis.yml
 name: Open Exchange Rates
 kind: company
-description: Open Exchange Rates provides a simple, reliable REST API for live and
-  historical foreign exchange (forex) rates covering 200+ world currencies, with
-  end-of-day historical data back to January 1st, 1999. The JSON API delivers
-  latest rates, historical snapshots, bulk time-series, currency conversion, and
-  OHLC data, authenticated with a per-account App ID and priced in published
-  monthly tiers that start with a free plan.
+description: Open Exchange Rates provides a simple, reliable REST API for live and historical foreign
+  exchange (forex) rates covering 200+ world currencies, with end-of-day historical data back to January
+  1st, 1999. The JSON API delivers latest rates, historical snapshots, bulk time-series, currency conversion,
+  and OHLC data, authenticated with a per-account App ID and priced in published monthly tiers that start
+  with a free plan.
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -31,7 +30,7 @@ tags:
 - Forex
 - Financial Data
 created: '2026-07-11'
-modified: '2026-07-11'
+modified: '2026-08-08'
 specificationVersion: '0.19'
 apis:
 - aid: openexchangerates:openexchangerates-convert-api
@@ -239,6 +238,22 @@ common:
   url: rate-limits/openexchangerates-rate-limits.yml
 - type: FinOps
   url: finops/openexchangerates-finops.yml
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/open-exchange-rates/overview
+- type: GitHubOrg
+  url: https://github.com/openexchangerates
+- type: StatusPage
+  url: https://status.openexchangerates.org
+- type: TermsOfService
+  url: https://openexchangerates.org/terms
+- type: PrivacyPolicy
+  url: https://openexchangerates.org/privacy
+- type: Support
+  url: https://support.openexchangerates.org
+- type: Contact
+  url: https://openexchangerates.org/contact
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-merged-from:
+- open-exchange-rates

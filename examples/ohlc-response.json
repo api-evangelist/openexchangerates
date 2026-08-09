@@ -1,0 +1,30 @@
+{
+  "disclaimer": "Usage subject to terms: https://openexchangerates.org/terms",
+  "license": "https://openexchangerates.org/license",
+  "start_time": "2023-01-01T00:00:00Z",
+  "end_time": "2023-01-02T00:00:00Z",
+  "base": "USD",
+  "rates": {
+    "EUR": {
+      "open": 0.934567,
+      "high": 0.938901,
+      "low": 0.932100,
+      "close": 0.936452,
+      "average": 0.935505
+    },
+    "GBP": {
+      "open": 0.826789,
+      "high": 0.831200,
+      "low": 0.824500,
+      "close": 0.828341,
+      "average": 0.827708
+    },
+    "JPY": {
+      "open": 131.12,
+      "high": 132.50,
+      "low": 130.80,
+      "close": 131.50,
+      "average": 131.48
+    }
+  }
+}

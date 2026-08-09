@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-exchange-rates/main/json-schema/ohlc-response.json",
+  "title": "OHLCResponse",
+  "description": "Response from the OHLC (Open, High, Low, Close) exchange rates endpoint",
+  "type": "object",
+  "properties": {
+    "disclaimer": {
+      "type": "string",
+      "description": "Legal disclaimer URL"
+    },
+    "license": {
+      "type": "string",
+      "description": "License URL"
+    },
+    "start_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Start time of the OHLC period in ISO-8601 UTC format"
+    },
+    "end_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "End time of the OHLC period in ISO-8601 UTC format"
+    },
+    "base": {
+      "type": "string",
+      "description": "Base currency 3-letter ISO code",
+      "example": "USD"
+    },
+    "rates": {
+      "type": "object",
+      "description": "Map of currency codes to OHLC data objects",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "open": {
+            "type": "number",
+            "description": "Opening exchange rate at the start of the period"
+          },
+          "high": {
+            "type": "number",
+            "description": "Highest exchange rate recorded during the period"
+          },
+          "low": {
+            "type": "number",
+            "description": "Lowest exchange rate recorded during the period"
+          },
+          "close": {
+            "type": "number",
+            "description": "Closing exchange rate at the end of the period"
+          },
+          "average": {
+            "type": "number",
+            "description": "Average exchange rate over the period"
+          }
+        }
+      }
+    }
+  }
+}

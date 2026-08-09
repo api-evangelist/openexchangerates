@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-exchange-rates/main/json-schema/currencies-response.json",
+  "title": "CurrenciesResponse",
+  "description": "Map of 3-letter ISO currency codes to their full currency names",
+  "type": "object",
+  "additionalProperties": {
+    "type": "string",
+    "description": "Full name of the currency"
+  },
+  "example": {
+    "USD": "United States Dollar",
+    "EUR": "Euro",
+    "GBP": "British Pound Sterling",
+    "JPY": "Japanese Yen",
+    "CAD": "Canadian Dollar",
+    "AUD": "Australian Dollar",
+    "CHF": "Swiss Franc",
+    "CNY": "Chinese Yuan"
+  }
+}

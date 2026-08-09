@@ -1,0 +1,15 @@
+{
+  "disclaimer": "Usage subject to terms: https://openexchangerates.org/terms",
+  "license": "https://openexchangerates.org/license",
+  "request": {
+    "query": "/convert/100/USD/EUR",
+    "amount": 100,
+    "from": "USD",
+    "to": "EUR"
+  },
+  "meta": {
+    "timestamp": 1686614400,
+    "rate": 0.924123
+  },
+  "response": 92.4123
+}

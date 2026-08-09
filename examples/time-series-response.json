@@ -1,0 +1,34 @@
+{
+  "disclaimer": "Usage subject to terms: https://openexchangerates.org/terms",
+  "license": "https://openexchangerates.org/license",
+  "start_date": "2023-01-01",
+  "end_date": "2023-01-05",
+  "base": "USD",
+  "rates": {
+    "2023-01-01": {
+      "EUR": 0.934567,
+      "GBP": 0.826789,
+      "JPY": 131.12
+    },
+    "2023-01-02": {
+      "EUR": 0.932100,
+      "GBP": 0.825000,
+      "JPY": 130.95
+    },
+    "2023-01-03": {
+      "EUR": 0.936452,
+      "GBP": 0.828341,
+      "JPY": 131.50
+    },
+    "2023-01-04": {
+      "EUR": 0.938901,
+      "GBP": 0.830124,
+      "JPY": 132.00
+    },
+    "2023-01-05": {
+      "EUR": 0.937233,
+      "GBP": 0.829876,
+      "JPY": 131.80
+    }
+  }
+}

@@ -1,0 +1,242 @@
+openapi: 3.0.3
+info:
+  title: Open Exchange Convert Rates API
+  description: 'RESTful JSON API delivering live and historical foreign exchange rates for 200+ world and digital currencies. Supports latest rates, historical end-of-day rates, time-series queries, currency conversion, and OHLC data depending on subscription plan. Trusted by over 100,000 organizations globally since 2011, with historical coverage back to January 1, 1999.
+
+    '
+  version: '0.7'
+  termsOfService: https://openexchangerates.org/terms
+  contact:
+    name: Open Exchange Rates Support
+    url: https://support.openexchangerates.org
+    email: support@openexchangerates.org
+  license:
+    name: Proprietary
+    url: https://openexchangerates.org/terms
+servers:
+- url: https://openexchangerates.org/api
+  description: Production API server
+security:
+- appId: []
+tags:
+- name: Rates
+  description: Live and historical exchange rate data
+paths:
+  /latest.json:
+    get:
+      operationId: getLatestRates
+      summary: Get latest exchange rates
+      description: 'Returns the latest available exchange rates for all supported currencies, updated approximately every hour. The base currency defaults to USD.
+
+        '
+      tags:
+      - Rates
+      parameters:
+      - $ref: '#/components/parameters/app_id'
+      - name: base
+        in: query
+        required: false
+        description: 'Change base currency (3-letter ISO code). Defaults to USD. Non-USD base currencies may require a paid plan.
+
+          '
+        schema:
+          type: string
+          example: USD
+      - name: symbols
+        in: query
+        required: false
+        description: 'Limit results to specific currencies. Provide a comma-separated list of 3-letter ISO currency codes.
+
+          '
+        schema:
+          type: string
+          example: EUR,GBP,JPY
+      - $ref: '#/components/parameters/prettyprint'
+      - $ref: '#/components/parameters/show_alternative'
+      responses:
+        '200':
+          description: Successful response with latest exchange rates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangeRatesResponse'
+              example:
+                disclaimer: 'Usage subject to terms: https://openexchangerates.org/terms'
+                license: https://openexchangerates.org/license
+                timestamp: 1686614400
+                base: USD
+                rates:
+                  EUR: 0.924123
+                  GBP: 0.787456
+                  JPY: 139.825
+                  CAD: 1.3302
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /historical/{date}.json:
+    get:
+      operationId: getHistoricalRates
+      summary: Get historical exchange rates
+      description: 'Returns exchange rates for a specific historical date. Data is available back to January 1, 1999. Rates reflect the last published values for the given UTC day (through 23:59:59 UTC).
+
+        '
+      tags:
+      - Rates
+      parameters:
+      - name: date
+        in: path
+        required: true
+        description: Requested date in YYYY-MM-DD format
+        schema:
+          type: string
+          format: date
+          example: '2023-01-01'
+      - $ref: '#/components/parameters/app_id'
+      - name: base
+        in: query
+        required: false
+        description: Base currency (3-letter ISO code, defaults to USD)
+        schema:
+          type: string
+          example: USD
+      - name: symbols
+        in: query
+        required: false
+        description: Comma-separated 3-letter ISO currency codes to limit results
+        schema:
+          type: string
+          example: EUR,GBP,JPY
+      - $ref: '#/components/parameters/prettyprint'
+      - $ref: '#/components/parameters/show_alternative'
+      responses:
+        '200':
+          description: Successful response with historical exchange rates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangeRatesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  parameters:
+    show_alternative:
+      name: show_alternative
+      in: query
+      required: false
+      description: 'Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.
+
+        '
+      schema:
+        type: boolean
+        default: false
+    app_id:
+      name: app_id
+      in: query
+      required: true
+      description: Your unique App ID for authentication
+      schema:
+        type: string
+        example: your_app_id_here
+    prettyprint:
+      name: prettyprint
+      in: query
+      required: false
+      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
+
+        '
+      schema:
+        type: boolean
+        default: false
+  schemas:
+    ExchangeRatesResponse:
+      type: object
+      description: Standard exchange rates response
+      properties:
+        disclaimer:
+          type: string
+          description: Legal disclaimer URL
+          example: 'Usage subject to terms: https://openexchangerates.org/terms'
+        license:
+          type: string
+          description: License URL
+          example: https://openexchangerates.org/license
+        timestamp:
+          type: integer
+          description: Unix timestamp (UTC) when rates were last updated
+          example: 1686614400
+        base:
+          type: string
+          description: Base currency code (3-letter ISO)
+          example: USD
+        rates:
+          type: object
+          description: 'Object mapping 3-letter ISO currency codes to their exchange rates relative to the base currency
+
+            '
+          additionalProperties:
+            type: number
+            format: double
+          example:
+            EUR: 0.924123
+            GBP: 0.787456
+            JPY: 139.825
+      required:
+      - disclaimer
+      - license
+      - timestamp
+      - base
+      - rates
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: boolean
+          description: Always true for error responses
+          example: true
+        status:
+          type: integer
+          description: HTTP status code
+          example: 401
+        message:
+          type: string
+          description: Short error identifier
+          example: invalid_app_id
+        description:
+          type: string
+          description: Detailed human-readable error explanation
+          example: Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid App ID
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request — invalid parameters or unavailable data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too many requests — rate limit or quota exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    appId:
+      type: apiKey
+      in: query
+      name: app_id
+      description: 'Your unique App ID obtained from openexchangerates.org. Required for all endpoints except /currencies.json.
+
+        '

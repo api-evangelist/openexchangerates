@@ -1,0 +1,704 @@
+{
+  "info": {
+    "_postman_id": "10791151-2212-4113-ae19-38822227af48",
+    "name": "Open Exchange Convert Rates API",
+    "description": "RESTful JSON API delivering live and historical foreign exchange rates for 200+ world and digital currencies. Supports latest rates, historical end-of-day rates, time-series queries, currency conversion, and OHLC data depending on subscription plan. Trusted by over 100,000 organizations globally since 2011, with historical coverage back to January 1, 1999.\n\n\nContact Support:\n Name: Open Exchange Rates Support\n Email: support@openexchangerates.org",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:25:27.000Z",
+    "updatedAt": "2026-07-28T02:25:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-10791151-2212-4113-ae19-38822227af48"
+  },
+  "item": [
+    {
+      "name": "latest.json",
+      "item": [
+        {
+          "name": "Get latest exchange rates",
+          "id": "e53b5ab8-a3e5-4894-9b8a-0c392d720c01",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/latest.json?app_id=<string>&base=<string>&symbols=<string>&prettyprint=false&show_alternative=false",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "latest.json"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Your unique App ID for authentication",
+                  "key": "app_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Change base currency (3-letter ISO code). Defaults to USD. Non-USD base currencies may require a paid plan.\n",
+                  "key": "base",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Limit results to specific currencies. Provide a comma-separated list of 3-letter ISO currency codes.\n",
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                  "key": "prettyprint",
+                  "value": "false"
+                },
+                {
+                  "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                  "key": "show_alternative",
+                  "value": "false"
+                }
+              ]
+            },
+            "description": "Returns the latest available exchange rates for all supported currencies, updated approximately every hour. The base currency defaults to USD.\n"
+          },
+          "response": [
+            {
+              "id": "f94a305f-231c-4148-bef8-c7e40faee0eb",
+              "name": "Successful response with latest exchange rates",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/latest.json?app_id=<API Key>&base=<string>&symbols=<string>&prettyprint=false&show_alternative=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "latest.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Change base currency (3-letter ISO code). Defaults to USD. Non-USD base currencies may require a paid plan.\n",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limit results to specific currencies. Provide a comma-separated list of 3-letter ISO currency codes.\n",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                      "key": "show_alternative",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"disclaimer\": \"<string>\",\n  \"license\": \"<string>\",\n  \"timestamp\": \"<integer>\",\n  \"base\": \"<string>\",\n  \"rates\": {\n    \"irure_8a\": \"<double>\",\n    \"eu_3\": \"<double>\"\n  }\n}",
+              "createdAt": "2026-07-28T02:25:27.000Z",
+              "updatedAt": "2026-07-28T02:25:27.000Z",
+              "uid": "35240-f94a305f-231c-4148-bef8-c7e40faee0eb"
+            },
+            {
+              "id": "ccb508b8-f862-418d-9759-aaf987e02aee",
+              "name": "Bad request \u2014 invalid parameters or unavailable data",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/latest.json?app_id=<API Key>&base=<string>&symbols=<string>&prettyprint=false&show_alternative=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "latest.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Change base currency (3-letter ISO code). Defaults to USD. Non-USD base currencies may require a paid plan.\n",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limit results to specific currencies. Provide a comma-separated list of 3-letter ISO currency codes.\n",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                      "key": "show_alternative",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:25:27.000Z",
+              "updatedAt": "2026-07-28T02:25:27.000Z",
+              "uid": "35240-ccb508b8-f862-418d-9759-aaf987e02aee"
+            },
+            {
+              "id": "06b9cf4a-558b-4a90-8f83-412253712139",
+              "name": "Unauthorized \u2014 missing or invalid App ID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/latest.json?app_id=<API Key>&base=<string>&symbols=<string>&prettyprint=false&show_alternative=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "latest.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Change base currency (3-letter ISO code). Defaults to USD. Non-USD base currencies may require a paid plan.\n",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limit results to specific currencies. Provide a comma-separated list of 3-letter ISO currency codes.\n",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                      "key": "show_alternative",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:25:27.000Z",
+              "updatedAt": "2026-07-28T02:25:27.000Z",
+              "uid": "35240-06b9cf4a-558b-4a90-8f83-412253712139"
+            },
+            {
+              "id": "cc1910b6-4019-4a29-a750-4c06f53a3fc1",
+              "name": "Too many requests \u2014 rate limit or quota exceeded",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/latest.json?app_id=<API Key>&base=<string>&symbols=<string>&prettyprint=false&show_alternative=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "latest.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Change base currency (3-letter ISO code). Defaults to USD. Non-USD base currencies may require a paid plan.\n",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limit results to specific currencies. Provide a comma-separated list of 3-letter ISO currency codes.\n",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                      "key": "show_alternative",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:25:27.000Z",
+              "updatedAt": "2026-07-28T02:25:27.000Z",
+              "uid": "35240-cc1910b6-4019-4a29-a750-4c06f53a3fc1"
+            }
+          ],
+          "createdAt": "2026-07-28T02:25:27.000Z",
+          "updatedAt": "2026-07-28T02:25:27.000Z",
+          "uid": "35240-e53b5ab8-a3e5-4894-9b8a-0c392d720c01"
+        }
+      ],
+      "id": "f532bde7-b198-4973-a8f4-53d9c8c6d3c4",
+      "createdAt": "2026-07-28T02:25:27.000Z",
+      "updatedAt": "2026-07-28T02:25:27.000Z",
+      "uid": "35240-f532bde7-b198-4973-a8f4-53d9c8c6d3c4"
+    },
+    {
+      "name": "historical",
+      "item": [
+        {
+          "name": "{date}.json",
+          "item": [
+            {
+              "name": "Get historical exchange rates",
+              "id": "161261ca-1f0d-4921-b5e4-e9b63c046ddc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/historical/{{date}}.json?app_id=<string>&base=<string>&symbols=<string>&prettyprint=false&show_alternative=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "historical",
+                    "{{date}}.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Base currency (3-letter ISO code, defaults to USD)",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated 3-letter ISO currency codes to limit results",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                      "key": "show_alternative",
+                      "value": "false"
+                    }
+                  ]
+                },
+                "description": "Returns exchange rates for a specific historical date. Data is available back to January 1, 1999. Rates reflect the last published values for the given UTC day (through 23:59:59 UTC).\n"
+              },
+              "response": [
+                {
+                  "id": "7ffc14fe-980b-4d8d-ad58-d50da1781344",
+                  "name": "Successful response with historical exchange rates",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/historical/{{date}}.json?app_id=<API Key>&base=<string>&symbols=<string>&prettyprint=false&show_alternative=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historical",
+                        "{{date}}.json"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Your unique App ID for authentication",
+                          "key": "app_id",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Base currency (3-letter ISO code, defaults to USD)",
+                          "key": "base",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated 3-letter ISO currency codes to limit results",
+                          "key": "symbols",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                          "key": "prettyprint",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                          "key": "show_alternative",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"disclaimer\": \"<string>\",\n  \"license\": \"<string>\",\n  \"timestamp\": \"<integer>\",\n  \"base\": \"<string>\",\n  \"rates\": {\n    \"irure_8a\": \"<double>\",\n    \"eu_3\": \"<double>\"\n  }\n}",
+                  "createdAt": "2026-07-28T02:25:27.000Z",
+                  "updatedAt": "2026-07-28T02:25:27.000Z",
+                  "uid": "35240-7ffc14fe-980b-4d8d-ad58-d50da1781344"
+                },
+                {
+                  "id": "d24ced7e-c599-4b62-988a-83f81067c197",
+                  "name": "Bad request \u2014 invalid parameters or unavailable data",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/historical/{{date}}.json?app_id=<API Key>&base=<string>&symbols=<string>&prettyprint=false&show_alternative=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historical",
+                        "{{date}}.json"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Your unique App ID for authentication",
+                          "key": "app_id",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Base currency (3-letter ISO code, defaults to USD)",
+                          "key": "base",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated 3-letter ISO currency codes to limit results",
+                          "key": "symbols",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                          "key": "prettyprint",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                          "key": "show_alternative",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:25:27.000Z",
+                  "updatedAt": "2026-07-28T02:25:27.000Z",
+                  "uid": "35240-d24ced7e-c599-4b62-988a-83f81067c197"
+                },
+                {
+                  "id": "0daccfa7-ed02-42aa-bf23-8996e6b4d6c1",
+                  "name": "Unauthorized \u2014 missing or invalid App ID",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/historical/{{date}}.json?app_id=<API Key>&base=<string>&symbols=<string>&prettyprint=false&show_alternative=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historical",
+                        "{{date}}.json"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Your unique App ID for authentication",
+                          "key": "app_id",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Base currency (3-letter ISO code, defaults to USD)",
+                          "key": "base",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated 3-letter ISO currency codes to limit results",
+                          "key": "symbols",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                          "key": "prettyprint",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                          "key": "show_alternative",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:25:27.000Z",
+                  "updatedAt": "2026-07-28T02:25:27.000Z",
+                  "uid": "35240-0daccfa7-ed02-42aa-bf23-8996e6b4d6c1"
+                },
+                {
+                  "id": "6a748fc0-5f36-4bad-822a-9bdb607c7f3a",
+                  "name": "Too many requests \u2014 rate limit or quota exceeded",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/historical/{{date}}.json?app_id=<API Key>&base=<string>&symbols=<string>&prettyprint=false&show_alternative=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historical",
+                        "{{date}}.json"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Your unique App ID for authentication",
+                          "key": "app_id",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Base currency (3-letter ISO code, defaults to USD)",
+                          "key": "base",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated 3-letter ISO currency codes to limit results",
+                          "key": "symbols",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                          "key": "prettyprint",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n",
+                          "key": "show_alternative",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:25:27.000Z",
+                  "updatedAt": "2026-07-28T02:25:27.000Z",
+                  "uid": "35240-6a748fc0-5f36-4bad-822a-9bdb607c7f3a"
+                }
+              ],
+              "createdAt": "2026-07-28T02:25:27.000Z",
+              "updatedAt": "2026-07-28T02:25:27.000Z",
+              "uid": "35240-161261ca-1f0d-4921-b5e4-e9b63c046ddc"
+            }
+          ],
+          "id": "56d2418e-994d-456d-b9f7-bf5c6c224475",
+          "createdAt": "2026-07-28T02:25:27.000Z",
+          "updatedAt": "2026-07-28T02:25:27.000Z",
+          "uid": "35240-56d2418e-994d-456d-b9f7-bf5c6c224475"
+        }
+      ],
+      "id": "2d77df18-2a71-4f4b-8088-5f08747f87c5",
+      "createdAt": "2026-07-28T02:25:27.000Z",
+      "updatedAt": "2026-07-28T02:25:27.000Z",
+      "uid": "35240-2d77df18-2a71-4f4b-8088-5f08747f87c5"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "app_id",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://openexchangerates.org/api"
+    },
+    {
+      "key": "date",
+      "value": "<date>"
+    }
+  ]
+}

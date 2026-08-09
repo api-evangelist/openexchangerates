@@ -1,0 +1,394 @@
+{
+  "info": {
+    "_postman_id": "b395595d-736e-42ed-9416-2e0086f6189f",
+    "name": "Open Exchange Rates Convert API",
+    "description": "RESTful JSON API delivering live and historical foreign exchange rates for 200+ world and digital currencies. Supports latest rates, historical end-of-day rates, time-series queries, currency conversion, and OHLC data depending on subscription plan. Trusted by over 100,000 organizations globally since 2011, with historical coverage back to January 1, 1999.\n\n\nContact Support:\n Name: Open Exchange Rates Support\n Email: support@openexchangerates.org",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:25:23.000Z",
+    "updatedAt": "2026-07-28T02:25:24.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b395595d-736e-42ed-9416-2e0086f6189f"
+  },
+  "item": [
+    {
+      "name": "convert",
+      "item": [
+        {
+          "name": "{value}",
+          "item": [
+            {
+              "name": "{from}",
+              "item": [
+                {
+                  "name": "{to}",
+                  "item": [
+                    {
+                      "name": "Convert a currency amount",
+                      "id": "6514ee38-3bea-40bc-bc5f-f66a95d23174",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/convert/:value/:from/:to?app_id=<string>&prettyprint=false",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "convert",
+                            ":value",
+                            ":from",
+                            ":to"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Your unique App ID for authentication",
+                              "key": "app_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                              "key": "prettyprint",
+                              "value": "false"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "80c3f3ca-3323-4d09-8493-ac0fb0bb3a5a",
+                              "key": "value",
+                              "value": "<number>",
+                              "description": "(Required) The monetary amount to convert"
+                            },
+                            {
+                              "id": "805425b1-d049-40ff-8bd6-63a1485bb389",
+                              "key": "from",
+                              "value": "<string>",
+                              "description": "(Required) Source currency 3-letter ISO code"
+                            },
+                            {
+                              "id": "5718ca0b-c050-4454-be13-c92b2ff05a6b",
+                              "key": "to",
+                              "value": "<string>",
+                              "description": "(Required) Target currency 3-letter ISO code"
+                            }
+                          ]
+                        },
+                        "description": "Converts a monetary amount between two currencies using the latest available exchange rate. Uses a REST-based approach with an alternate response format. Available to Unlimited plan subscribers only.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "a8e97c45-9bbc-4b80-81ea-c1501a2073da",
+                          "name": "Successful conversion result",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/convert/:value/:from/:to?app_id=<API Key>&prettyprint=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "convert",
+                                ":value",
+                                ":from",
+                                ":to"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Your unique App ID for authentication",
+                                  "key": "app_id",
+                                  "value": "<API Key>"
+                                },
+                                {
+                                  "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                                  "key": "prettyprint",
+                                  "value": "false"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "value"
+                                },
+                                {
+                                  "key": "from"
+                                },
+                                {
+                                  "key": "to"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"disclaimer\": \"<string>\",\n  \"license\": \"<string>\",\n  \"request\": {\n    \"query\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"from\": \"<string>\",\n    \"to\": \"<string>\"\n  },\n  \"meta\": {\n    \"timestamp\": \"<integer>\",\n    \"rate\": \"<double>\"\n  },\n  \"response\": \"<double>\"\n}",
+                          "createdAt": "2026-07-28T02:25:24.000Z",
+                          "updatedAt": "2026-07-28T02:25:24.000Z",
+                          "uid": "35240-a8e97c45-9bbc-4b80-81ea-c1501a2073da"
+                        },
+                        {
+                          "id": "5117af69-6b9d-45bd-b762-4ded9a1d4b66",
+                          "name": "Bad request \u2014 invalid parameters or unavailable data",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/convert/:value/:from/:to?app_id=<API Key>&prettyprint=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "convert",
+                                ":value",
+                                ":from",
+                                ":to"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Your unique App ID for authentication",
+                                  "key": "app_id",
+                                  "value": "<API Key>"
+                                },
+                                {
+                                  "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                                  "key": "prettyprint",
+                                  "value": "false"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "value"
+                                },
+                                {
+                                  "key": "from"
+                                },
+                                {
+                                  "key": "to"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:25:24.000Z",
+                          "updatedAt": "2026-07-28T02:25:24.000Z",
+                          "uid": "35240-5117af69-6b9d-45bd-b762-4ded9a1d4b66"
+                        },
+                        {
+                          "id": "2362f8a4-3ca1-4b7e-b1fa-3fd2cefaea5f",
+                          "name": "Unauthorized \u2014 missing or invalid App ID",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/convert/:value/:from/:to?app_id=<API Key>&prettyprint=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "convert",
+                                ":value",
+                                ":from",
+                                ":to"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Your unique App ID for authentication",
+                                  "key": "app_id",
+                                  "value": "<API Key>"
+                                },
+                                {
+                                  "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                                  "key": "prettyprint",
+                                  "value": "false"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "value"
+                                },
+                                {
+                                  "key": "from"
+                                },
+                                {
+                                  "key": "to"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:25:24.000Z",
+                          "updatedAt": "2026-07-28T02:25:24.000Z",
+                          "uid": "35240-2362f8a4-3ca1-4b7e-b1fa-3fd2cefaea5f"
+                        },
+                        {
+                          "id": "3251926f-5a75-42a4-baf8-ef9293beb746",
+                          "name": "Too many requests \u2014 rate limit or quota exceeded",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/convert/:value/:from/:to?app_id=<API Key>&prettyprint=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "convert",
+                                ":value",
+                                ":from",
+                                ":to"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Your unique App ID for authentication",
+                                  "key": "app_id",
+                                  "value": "<API Key>"
+                                },
+                                {
+                                  "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                                  "key": "prettyprint",
+                                  "value": "false"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "value"
+                                },
+                                {
+                                  "key": "from"
+                                },
+                                {
+                                  "key": "to"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:25:24.000Z",
+                          "updatedAt": "2026-07-28T02:25:24.000Z",
+                          "uid": "35240-3251926f-5a75-42a4-baf8-ef9293beb746"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:25:24.000Z",
+                      "updatedAt": "2026-07-28T02:25:24.000Z",
+                      "uid": "35240-6514ee38-3bea-40bc-bc5f-f66a95d23174"
+                    }
+                  ],
+                  "id": "2e179b14-564e-49bb-99ac-0088545a9420",
+                  "createdAt": "2026-07-28T02:25:24.000Z",
+                  "updatedAt": "2026-07-28T02:25:24.000Z",
+                  "uid": "35240-2e179b14-564e-49bb-99ac-0088545a9420"
+                }
+              ],
+              "id": "f4ba447a-b16c-4d81-ab71-8df08cf6d3b3",
+              "createdAt": "2026-07-28T02:25:24.000Z",
+              "updatedAt": "2026-07-28T02:25:24.000Z",
+              "uid": "35240-f4ba447a-b16c-4d81-ab71-8df08cf6d3b3"
+            }
+          ],
+          "id": "78da4f6a-6d03-46c1-a0b1-2c342452e900",
+          "createdAt": "2026-07-28T02:25:24.000Z",
+          "updatedAt": "2026-07-28T02:25:24.000Z",
+          "uid": "35240-78da4f6a-6d03-46c1-a0b1-2c342452e900"
+        }
+      ],
+      "id": "a9c4edba-d05f-48b9-8f09-f9acb1b4cb24",
+      "createdAt": "2026-07-28T02:25:24.000Z",
+      "updatedAt": "2026-07-28T02:25:24.000Z",
+      "uid": "35240-a9c4edba-d05f-48b9-8f09-f9acb1b4cb24"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "app_id",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://openexchangerates.org/api"
+    }
+  ]
+}

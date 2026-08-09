@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-exchange-rates/main/json-schema/exchange-rates-response.json",
+  "title": "ExchangeRatesResponse",
+  "description": "Standard response object for latest and historical exchange rate endpoints",
+  "type": "object",
+  "required": ["disclaimer", "license", "timestamp", "base", "rates"],
+  "properties": {
+    "disclaimer": {
+      "type": "string",
+      "description": "Legal disclaimer URL for data usage terms",
+      "example": "Usage subject to terms: https://openexchangerates.org/terms"
+    },
+    "license": {
+      "type": "string",
+      "description": "URL of the data license",
+      "example": "https://openexchangerates.org/license"
+    },
+    "timestamp": {
+      "type": "integer",
+      "description": "Unix timestamp (UTC) when rates were last published",
+      "example": 1686614400
+    },
+    "base": {
+      "type": "string",
+      "description": "3-letter ISO currency code of the base currency",
+      "minLength": 3,
+      "maxLength": 3,
+      "example": "USD"
+    },
+    "rates": {
+      "type": "object",
+      "description": "Map of 3-letter ISO currency codes to exchange rates relative to base",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Exchange rate relative to the base currency"
+      },
+      "example": {
+        "EUR": 0.924123,
+        "GBP": 0.787456,
+        "JPY": 139.825000,
+        "CAD": 1.330200
+      }
+    }
+  }
+}

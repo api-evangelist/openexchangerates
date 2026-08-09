@@ -1,0 +1,728 @@
+openapi: 3.0.3
+info:
+  title: Open Exchange Rates API
+  description: >
+    RESTful JSON API delivering live and historical foreign exchange rates for
+    200+ world and digital currencies. Supports latest rates, historical
+    end-of-day rates, time-series queries, currency conversion, and OHLC data
+    depending on subscription plan. Trusted by over 100,000 organizations
+    globally since 2011, with historical coverage back to January 1, 1999.
+  version: '0.7'
+  termsOfService: https://openexchangerates.org/terms
+  contact:
+    name: Open Exchange Rates Support
+    url: https://support.openexchangerates.org
+    email: support@openexchangerates.org
+  license:
+    name: Proprietary
+    url: https://openexchangerates.org/terms
+servers:
+  - url: https://openexchangerates.org/api
+    description: Production API server
+security:
+  - appId: []
+tags:
+  - name: Rates
+    description: Live and historical exchange rate data
+  - name: Currencies
+    description: Available currency list
+  - name: Convert
+    description: Currency conversion (Unlimited plan)
+  - name: Time Series
+    description: Historical time-series data (Enterprise/Unlimited plans)
+  - name: OHLC
+    description: Open/High/Low/Close data (VIP Platinum plan)
+  - name: Usage
+    description: Plan and usage statistics
+paths:
+  /latest.json:
+    get:
+      operationId: getLatestRates
+      summary: Get latest exchange rates
+      description: >
+        Returns the latest available exchange rates for all supported currencies,
+        updated approximately every hour. The base currency defaults to USD.
+      tags:
+        - Rates
+      parameters:
+        - $ref: '#/components/parameters/app_id'
+        - name: base
+          in: query
+          required: false
+          description: >
+            Change base currency (3-letter ISO code). Defaults to USD.
+            Non-USD base currencies may require a paid plan.
+          schema:
+            type: string
+            example: USD
+        - name: symbols
+          in: query
+          required: false
+          description: >
+            Limit results to specific currencies. Provide a comma-separated
+            list of 3-letter ISO currency codes.
+          schema:
+            type: string
+            example: EUR,GBP,JPY
+        - $ref: '#/components/parameters/prettyprint'
+        - $ref: '#/components/parameters/show_alternative'
+      responses:
+        '200':
+          description: Successful response with latest exchange rates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangeRatesResponse'
+              example:
+                disclaimer: "Usage subject to terms: https://openexchangerates.org/terms"
+                license: "https://openexchangerates.org/license"
+                timestamp: 1686614400
+                base: USD
+                rates:
+                  EUR: 0.924123
+                  GBP: 0.787456
+                  JPY: 139.825000
+                  CAD: 1.330200
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /historical/{date}.json:
+    get:
+      operationId: getHistoricalRates
+      summary: Get historical exchange rates
+      description: >
+        Returns exchange rates for a specific historical date. Data is available
+        back to January 1, 1999. Rates reflect the last published values for
+        the given UTC day (through 23:59:59 UTC).
+      tags:
+        - Rates
+      parameters:
+        - name: date
+          in: path
+          required: true
+          description: Requested date in YYYY-MM-DD format
+          schema:
+            type: string
+            format: date
+            example: '2023-01-01'
+        - $ref: '#/components/parameters/app_id'
+        - name: base
+          in: query
+          required: false
+          description: Base currency (3-letter ISO code, defaults to USD)
+          schema:
+            type: string
+            example: USD
+        - name: symbols
+          in: query
+          required: false
+          description: Comma-separated 3-letter ISO currency codes to limit results
+          schema:
+            type: string
+            example: EUR,GBP,JPY
+        - $ref: '#/components/parameters/prettyprint'
+        - $ref: '#/components/parameters/show_alternative'
+      responses:
+        '200':
+          description: Successful response with historical exchange rates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangeRatesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /currencies.json:
+    get:
+      operationId: getCurrencies
+      summary: Get available currencies
+      description: >
+        Returns a JSON object of all available currency symbols with their full
+        names. Useful for populating dropdowns or validating currency codes.
+        This endpoint does not require an app_id.
+      tags:
+        - Currencies
+      parameters:
+        - $ref: '#/components/parameters/prettyprint'
+        - $ref: '#/components/parameters/show_alternative'
+        - name: show_inactive
+          in: query
+          required: false
+          description: >
+            Include historical/inactive currencies that are no longer updated
+            (defaults to false)
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Successful response with available currencies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrenciesResponse'
+              example:
+                USD: United States Dollar
+                EUR: Euro
+                GBP: British Pound Sterling
+                JPY: Japanese Yen
+                CAD: Canadian Dollar
+  /convert/{value}/{from}/{to}:
+    get:
+      operationId: convertCurrency
+      summary: Convert a currency amount
+      description: >
+        Converts a monetary amount between two currencies using the latest
+        available exchange rate. Uses a REST-based approach with an alternate
+        response format. Available to Unlimited plan subscribers only.
+      tags:
+        - Convert
+      parameters:
+        - name: value
+          in: path
+          required: true
+          description: The monetary amount to convert
+          schema:
+            type: number
+            example: 100
+        - name: from
+          in: path
+          required: true
+          description: Source currency 3-letter ISO code
+          schema:
+            type: string
+            example: USD
+        - name: to
+          in: path
+          required: true
+          description: Target currency 3-letter ISO code
+          schema:
+            type: string
+            example: EUR
+        - $ref: '#/components/parameters/app_id'
+        - $ref: '#/components/parameters/prettyprint'
+      responses:
+        '200':
+          description: Successful conversion result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConvertResponse'
+              example:
+                disclaimer: "Usage subject to terms: https://openexchangerates.org/terms"
+                license: "https://openexchangerates.org/license"
+                request:
+                  query: /convert/100/USD/EUR
+                  amount: 100
+                  from: USD
+                  to: EUR
+                meta:
+                  timestamp: 1686614400
+                  rate: 0.924123
+                response: 92.4123
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /time-series.json:
+    get:
+      operationId: getTimeSeries
+      summary: Get time-series exchange rates
+      description: >
+        Returns historical exchange rates for a given time period (date range).
+        Rates are provided per day between start and end dates.
+        Available to Enterprise and Unlimited plan subscribers.
+      tags:
+        - Time Series
+      parameters:
+        - $ref: '#/components/parameters/app_id'
+        - name: start
+          in: query
+          required: true
+          description: Start date for the time series (YYYY-MM-DD format)
+          schema:
+            type: string
+            format: date
+            example: '2023-01-01'
+        - name: end
+          in: query
+          required: true
+          description: End date for the time series (YYYY-MM-DD format)
+          schema:
+            type: string
+            format: date
+            example: '2023-01-31'
+        - name: symbols
+          in: query
+          required: false
+          description: Comma-separated 3-letter currency codes to limit results
+          schema:
+            type: string
+            example: EUR,GBP
+        - name: base
+          in: query
+          required: false
+          description: Base currency (3-letter ISO code, defaults to USD)
+          schema:
+            type: string
+            example: USD
+        - $ref: '#/components/parameters/show_alternative'
+        - $ref: '#/components/parameters/prettyprint'
+      responses:
+        '200':
+          description: Successful response with time-series exchange rates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeSeriesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /ohlc.json:
+    get:
+      operationId: getOHLC
+      summary: Get OHLC exchange rates
+      description: >
+        Returns Open, High, Low, Close (OHLC) and average exchange rates for a
+        given time period, ranging from 1 minute to 1 month. Values derive from
+        all recorded prices published at up to 1-second intervals.
+        Available to VIP Platinum plan subscribers.
+      tags:
+        - OHLC
+      parameters:
+        - $ref: '#/components/parameters/app_id'
+        - name: start_time
+          in: query
+          required: true
+          description: >
+            Start time for the OHLC period in ISO-8601 format (UTC only),
+            e.g. 2023-01-01T00:00:00Z
+          schema:
+            type: string
+            format: date-time
+            example: '2023-01-01T00:00:00Z'
+        - name: period
+          in: query
+          required: true
+          description: >
+            Period duration starting at start_time. Supported values include
+            1m, 5m, 15m, 30m, 1h, 12h, 1d, 1w, 1mo.
+          schema:
+            type: string
+            example: 1d
+        - name: symbols
+          in: query
+          required: false
+          description: Comma-separated 3-letter currency codes to limit results
+          schema:
+            type: string
+            example: EUR,GBP
+        - name: base
+          in: query
+          required: false
+          description: Base currency (3-letter ISO code, defaults to USD)
+          schema:
+            type: string
+            example: USD
+        - $ref: '#/components/parameters/prettyprint'
+      responses:
+        '200':
+          description: Successful response with OHLC exchange rate data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OHLCResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /usage.json:
+    get:
+      operationId: getUsage
+      summary: Get API usage statistics
+      description: >
+        Returns plan information and usage statistics for the provided App ID,
+        including request counts, plan limits, and subscription details.
+      tags:
+        - Usage
+      parameters:
+        - $ref: '#/components/parameters/app_id'
+        - $ref: '#/components/parameters/prettyprint'
+      responses:
+        '200':
+          description: Successful response with usage and plan details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageResponse'
+              example:
+                status: active
+                data:
+                  app_id: "your_app_id"
+                  status: active
+                  plan:
+                    name: Developer
+                    quota: "1000 requests / month"
+                    update_frequency: "3600s"
+                    features:
+                      base: false
+                      symbols: false
+                      experimental: false
+                      time-series: false
+                      convert: false
+                  usage:
+                    requests: 123
+                    requests_quota: 1000
+                    requests_remaining: 877
+                    days_elapsed: 5
+                    days_remaining: 26
+                    daily_average: 24
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    appId:
+      type: apiKey
+      in: query
+      name: app_id
+      description: >
+        Your unique App ID obtained from openexchangerates.org. Required for
+        all endpoints except /currencies.json.
+  parameters:
+    app_id:
+      name: app_id
+      in: query
+      required: true
+      description: Your unique App ID for authentication
+      schema:
+        type: string
+        example: your_app_id_here
+    prettyprint:
+      name: prettyprint
+      in: query
+      required: false
+      description: >
+        Set to true to enable human-readable (pretty-printed) JSON output
+        for debugging. Defaults to false to minimize response size.
+      schema:
+        type: boolean
+        default: false
+    show_alternative:
+      name: show_alternative
+      in: query
+      required: false
+      description: >
+        Set to true to extend returned values with alternative, black market
+        and digital currency rates. Defaults to false.
+      schema:
+        type: boolean
+        default: false
+  schemas:
+    ExchangeRatesResponse:
+      type: object
+      description: Standard exchange rates response
+      properties:
+        disclaimer:
+          type: string
+          description: Legal disclaimer URL
+          example: "Usage subject to terms: https://openexchangerates.org/terms"
+        license:
+          type: string
+          description: License URL
+          example: "https://openexchangerates.org/license"
+        timestamp:
+          type: integer
+          description: Unix timestamp (UTC) when rates were last updated
+          example: 1686614400
+        base:
+          type: string
+          description: Base currency code (3-letter ISO)
+          example: USD
+        rates:
+          type: object
+          description: >
+            Object mapping 3-letter ISO currency codes to their exchange rates
+            relative to the base currency
+          additionalProperties:
+            type: number
+            format: double
+          example:
+            EUR: 0.924123
+            GBP: 0.787456
+            JPY: 139.825000
+      required:
+        - disclaimer
+        - license
+        - timestamp
+        - base
+        - rates
+    CurrenciesResponse:
+      type: object
+      description: >
+        Object mapping 3-letter ISO currency codes to their full names
+      additionalProperties:
+        type: string
+      example:
+        USD: United States Dollar
+        EUR: Euro
+        GBP: British Pound Sterling
+    ConvertResponse:
+      type: object
+      description: Currency conversion response
+      properties:
+        disclaimer:
+          type: string
+          description: Legal disclaimer URL
+        license:
+          type: string
+          description: License URL
+        request:
+          type: object
+          description: Details of the conversion request
+          properties:
+            query:
+              type: string
+              description: The request path
+            amount:
+              type: number
+              description: The amount that was converted
+            from:
+              type: string
+              description: Source currency code
+            to:
+              type: string
+              description: Target currency code
+        meta:
+          type: object
+          description: Metadata about the conversion
+          properties:
+            timestamp:
+              type: integer
+              description: Unix timestamp of the exchange rate used
+            rate:
+              type: number
+              format: double
+              description: Exchange rate used for conversion
+        response:
+          type: number
+          format: double
+          description: The converted amount
+    TimeSeriesResponse:
+      type: object
+      description: Time-series exchange rates response
+      properties:
+        disclaimer:
+          type: string
+          description: Legal disclaimer URL
+        license:
+          type: string
+          description: License URL
+        start_date:
+          type: string
+          format: date
+          description: Start date of the time series
+        end_date:
+          type: string
+          format: date
+          description: End date of the time series
+        base:
+          type: string
+          description: Base currency code
+        rates:
+          type: object
+          description: >
+            Object mapping YYYY-MM-DD date strings to exchange rate objects
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: number
+              format: double
+          example:
+            '2023-01-01':
+              EUR: 0.934567
+              GBP: 0.826789
+            '2023-01-02':
+              EUR: 0.932100
+              GBP: 0.825000
+    OHLCRate:
+      type: object
+      description: OHLC rate data for a single currency
+      properties:
+        open:
+          type: number
+          format: double
+          description: Opening rate at the start of the period
+        high:
+          type: number
+          format: double
+          description: Highest rate recorded during the period
+        low:
+          type: number
+          format: double
+          description: Lowest rate recorded during the period
+        close:
+          type: number
+          format: double
+          description: Closing rate at the end of the period
+        average:
+          type: number
+          format: double
+          description: Average rate over the period
+    OHLCResponse:
+      type: object
+      description: OHLC exchange rates response
+      properties:
+        disclaimer:
+          type: string
+          description: Legal disclaimer URL
+        license:
+          type: string
+          description: License URL
+        start_time:
+          type: string
+          format: date-time
+          description: Start time of the OHLC period (UTC)
+        end_time:
+          type: string
+          format: date-time
+          description: End time of the OHLC period (UTC)
+        base:
+          type: string
+          description: Base currency code
+        rates:
+          type: object
+          description: >
+            Object mapping 3-letter ISO currency codes to their OHLC data
+          additionalProperties:
+            $ref: '#/components/schemas/OHLCRate'
+    PlanFeatures:
+      type: object
+      description: Features enabled for the subscription plan
+      properties:
+        base:
+          type: boolean
+          description: Whether non-USD base currencies are supported
+        symbols:
+          type: boolean
+          description: Whether currency filtering (symbols) is supported
+        experimental:
+          type: boolean
+          description: Whether experimental features are enabled
+        time-series:
+          type: boolean
+          description: Whether time-series endpoint is available
+        convert:
+          type: boolean
+          description: Whether the convert endpoint is available
+    Plan:
+      type: object
+      description: Subscription plan details
+      properties:
+        name:
+          type: string
+          description: Plan name (e.g., Developer, Enterprise, Unlimited)
+        quota:
+          type: string
+          description: Human-readable request quota description
+        update_frequency:
+          type: string
+          description: Rate update frequency in seconds (e.g., "3600s")
+        features:
+          $ref: '#/components/schemas/PlanFeatures'
+    UsageStats:
+      type: object
+      description: Usage statistics for the current billing period
+      properties:
+        requests:
+          type: integer
+          description: Number of API requests made in the current period
+        requests_quota:
+          type: integer
+          description: Total request quota for the billing period
+        requests_remaining:
+          type: integer
+          description: Remaining requests in the current period
+        days_elapsed:
+          type: integer
+          description: Number of days elapsed in the current billing period
+        days_remaining:
+          type: integer
+          description: Number of days remaining in the current billing period
+        daily_average:
+          type: number
+          description: Average daily request count so far this period
+    UsageData:
+      type: object
+      description: Combined plan and usage data
+      properties:
+        app_id:
+          type: string
+          description: The App ID these statistics relate to
+        status:
+          type: string
+          description: Account status (e.g., active, suspended)
+        plan:
+          $ref: '#/components/schemas/Plan'
+        usage:
+          $ref: '#/components/schemas/UsageStats'
+    UsageResponse:
+      type: object
+      description: API usage and plan response
+      properties:
+        status:
+          type: string
+          description: Request status
+        data:
+          $ref: '#/components/schemas/UsageData'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: boolean
+          description: Always true for error responses
+          example: true
+        status:
+          type: integer
+          description: HTTP status code
+          example: 401
+        message:
+          type: string
+          description: Short error identifier
+          example: invalid_app_id
+        description:
+          type: string
+          description: Detailed human-readable error explanation
+          example: "Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org."
+  responses:
+    BadRequest:
+      description: Bad request — invalid parameters or unavailable data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized — missing or invalid App ID
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too many requests — rate limit or quota exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

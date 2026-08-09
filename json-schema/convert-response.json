@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-exchange-rates/main/json-schema/convert-response.json",
+  "title": "ConvertResponse",
+  "description": "Response from the currency conversion endpoint",
+  "type": "object",
+  "properties": {
+    "disclaimer": {
+      "type": "string",
+      "description": "Legal disclaimer URL"
+    },
+    "license": {
+      "type": "string",
+      "description": "License URL"
+    },
+    "request": {
+      "type": "object",
+      "description": "Details of the conversion request",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The request path used",
+          "example": "/convert/100/USD/EUR"
+        },
+        "amount": {
+          "type": "number",
+          "description": "The amount that was converted",
+          "example": 100
+        },
+        "from": {
+          "type": "string",
+          "description": "Source currency 3-letter ISO code",
+          "example": "USD"
+        },
+        "to": {
+          "type": "string",
+          "description": "Target currency 3-letter ISO code",
+          "example": "EUR"
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata about the exchange rate used",
+      "properties": {
+        "timestamp": {
+          "type": "integer",
+          "description": "Unix timestamp of the exchange rate"
+        },
+        "rate": {
+          "type": "number",
+          "description": "Exchange rate applied in the conversion",
+          "example": 0.924123
+        }
+      }
+    },
+    "response": {
+      "type": "number",
+      "description": "The converted amount in the target currency",
+      "example": 92.4123
+    }
+  }
+}

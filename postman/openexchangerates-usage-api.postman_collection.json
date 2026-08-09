@@ -1,0 +1,190 @@
+{
+  "info": {
+    "_postman_id": "42a18c60-41e2-46c5-8300-a304ffbb1c8f",
+    "name": "Open Exchange Rates Convert Usage API",
+    "description": "RESTful JSON API delivering live and historical foreign exchange rates for 200+ world and digital currencies. Supports latest rates, historical end-of-day rates, time-series queries, currency conversion, and OHLC data depending on subscription plan. Trusted by over 100,000 organizations globally since 2011, with historical coverage back to January 1, 1999.\n\n\nContact Support:\n Name: Open Exchange Rates Support\n Email: support@openexchangerates.org",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:25:29.000Z",
+    "updatedAt": "2026-07-28T02:25:29.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-42a18c60-41e2-46c5-8300-a304ffbb1c8f"
+  },
+  "item": [
+    {
+      "name": "usage.json",
+      "item": [
+        {
+          "name": "Get API usage statistics",
+          "id": "1663b4b7-9b5a-48d2-b5c8-67276e42943b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/usage.json?app_id=<string>&prettyprint=false",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usage.json"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Your unique App ID for authentication",
+                  "key": "app_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                  "key": "prettyprint",
+                  "value": "false"
+                }
+              ]
+            },
+            "description": "Returns plan information and usage statistics for the provided App ID, including request counts, plan limits, and subscription details.\n"
+          },
+          "response": [
+            {
+              "id": "4dc12d6f-4692-44a7-b7ca-6cde318c50d5",
+              "name": "Successful response with usage and plan details",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/usage.json?app_id=<API Key>&prettyprint=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usage.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<string>\",\n  \"data\": {\n    \"app_id\": \"<string>\",\n    \"status\": \"<string>\",\n    \"plan\": {\n      \"name\": \"<string>\",\n      \"quota\": \"<string>\",\n      \"update_frequency\": \"<string>\",\n      \"features\": {\n        \"base\": \"<boolean>\",\n        \"symbols\": \"<boolean>\",\n        \"experimental\": \"<boolean>\",\n        \"time-series\": \"<boolean>\",\n        \"convert\": \"<boolean>\"\n      }\n    },\n    \"usage\": {\n      \"requests\": \"<integer>\",\n      \"requests_quota\": \"<integer>\",\n      \"requests_remaining\": \"<integer>\",\n      \"days_elapsed\": \"<integer>\",\n      \"days_remaining\": \"<integer>\",\n      \"daily_average\": \"<number>\"\n    }\n  }\n}",
+              "createdAt": "2026-07-28T02:25:29.000Z",
+              "updatedAt": "2026-07-28T02:25:29.000Z",
+              "uid": "35240-4dc12d6f-4692-44a7-b7ca-6cde318c50d5"
+            },
+            {
+              "id": "68e2b74a-8f7e-4a31-bbf6-557d61049db2",
+              "name": "Unauthorized \u2014 missing or invalid App ID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/usage.json?app_id=<API Key>&prettyprint=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usage.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:25:29.000Z",
+              "updatedAt": "2026-07-28T02:25:29.000Z",
+              "uid": "35240-68e2b74a-8f7e-4a31-bbf6-557d61049db2"
+            }
+          ],
+          "createdAt": "2026-07-28T02:25:29.000Z",
+          "updatedAt": "2026-07-28T02:25:29.000Z",
+          "uid": "35240-1663b4b7-9b5a-48d2-b5c8-67276e42943b"
+        }
+      ],
+      "id": "fa7e1dc5-266d-4d0f-92ff-4e17ec73b3a1",
+      "createdAt": "2026-07-28T02:25:29.000Z",
+      "updatedAt": "2026-07-28T02:25:29.000Z",
+      "uid": "35240-fa7e1dc5-266d-4d0f-92ff-4e17ec73b3a1"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "app_id",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://openexchangerates.org/api"
+    }
+  ]
+}

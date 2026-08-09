@@ -1,0 +1,388 @@
+{
+  "info": {
+    "_postman_id": "a8a57e20-4807-4f5e-9c8d-2a73d9e4a315",
+    "name": "Open Exchange Rates Convert OHLC API",
+    "description": "RESTful JSON API delivering live and historical foreign exchange rates for 200+ world and digital currencies. Supports latest rates, historical end-of-day rates, time-series queries, currency conversion, and OHLC data depending on subscription plan. Trusted by over 100,000 organizations globally since 2011, with historical coverage back to January 1, 1999.\n\n\nContact Support:\n Name: Open Exchange Rates Support\n Email: support@openexchangerates.org",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:25:26.000Z",
+    "updatedAt": "2026-07-28T02:25:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a8a57e20-4807-4f5e-9c8d-2a73d9e4a315"
+  },
+  "item": [
+    {
+      "name": "ohlc.json",
+      "item": [
+        {
+          "name": "Get OHLC exchange rates",
+          "id": "088c73aa-2864-4811-8db0-eaab53b50485",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ohlc.json?app_id=<string>&start_time=<dateTime>&period=<string>&symbols=<string>&base=<string>&prettyprint=false",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ohlc.json"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Your unique App ID for authentication",
+                  "key": "app_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Start time for the OHLC period in ISO-8601 format (UTC only), e.g. 2023-01-01T00:00:00Z\n",
+                  "key": "start_time",
+                  "value": "<dateTime>"
+                },
+                {
+                  "description": "(Required) Period duration starting at start_time. Supported values include 1m, 5m, 15m, 30m, 1h, 12h, 1d, 1w, 1mo.\n",
+                  "key": "period",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated 3-letter currency codes to limit results",
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Base currency (3-letter ISO code, defaults to USD)",
+                  "key": "base",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                  "key": "prettyprint",
+                  "value": "false"
+                }
+              ]
+            },
+            "description": "Returns Open, High, Low, Close (OHLC) and average exchange rates for a given time period, ranging from 1 minute to 1 month. Values derive from all recorded prices published at up to 1-second intervals. Available to VIP Platinum plan subscribers.\n"
+          },
+          "response": [
+            {
+              "id": "a2a5419a-53ff-43f1-b50f-23127000d7f5",
+              "name": "Successful response with OHLC exchange rate data",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ohlc.json?app_id=<API Key>&start_time=<dateTime>&period=<string>&symbols=<string>&base=<string>&prettyprint=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ohlc.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Start time for the OHLC period in ISO-8601 format (UTC only), e.g. 2023-01-01T00:00:00Z\n",
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) Period duration starting at start_time. Supported values include 1m, 5m, 15m, 30m, 1h, 12h, 1d, 1w, 1mo.\n",
+                      "key": "period",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated 3-letter currency codes to limit results",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Base currency (3-letter ISO code, defaults to USD)",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"disclaimer\": \"<string>\",\n  \"license\": \"<string>\",\n  \"start_time\": \"<dateTime>\",\n  \"end_time\": \"<dateTime>\",\n  \"base\": \"<string>\",\n  \"rates\": {\n    \"officia8\": {\n      \"open\": \"<double>\",\n      \"high\": \"<double>\",\n      \"low\": \"<double>\",\n      \"close\": \"<double>\",\n      \"average\": \"<double>\"\n    },\n    \"voluptate_8\": {\n      \"open\": \"<double>\",\n      \"high\": \"<double>\",\n      \"low\": \"<double>\",\n      \"close\": \"<double>\",\n      \"average\": \"<double>\"\n    },\n    \"aliquip3\": {\n      \"open\": \"<double>\",\n      \"high\": \"<double>\",\n      \"low\": \"<double>\",\n      \"close\": \"<double>\",\n      \"average\": \"<double>\"\n    }\n  }\n}",
+              "createdAt": "2026-07-28T02:25:26.000Z",
+              "updatedAt": "2026-07-28T02:25:26.000Z",
+              "uid": "35240-a2a5419a-53ff-43f1-b50f-23127000d7f5"
+            },
+            {
+              "id": "7f32c2bb-9cf1-4895-b915-db4e74c9558f",
+              "name": "Bad request \u2014 invalid parameters or unavailable data",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ohlc.json?app_id=<API Key>&start_time=<dateTime>&period=<string>&symbols=<string>&base=<string>&prettyprint=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ohlc.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Start time for the OHLC period in ISO-8601 format (UTC only), e.g. 2023-01-01T00:00:00Z\n",
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) Period duration starting at start_time. Supported values include 1m, 5m, 15m, 30m, 1h, 12h, 1d, 1w, 1mo.\n",
+                      "key": "period",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated 3-letter currency codes to limit results",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Base currency (3-letter ISO code, defaults to USD)",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:25:26.000Z",
+              "updatedAt": "2026-07-28T02:25:26.000Z",
+              "uid": "35240-7f32c2bb-9cf1-4895-b915-db4e74c9558f"
+            },
+            {
+              "id": "0d8d5b9a-8d1e-4476-bcba-34392da350ab",
+              "name": "Unauthorized \u2014 missing or invalid App ID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ohlc.json?app_id=<API Key>&start_time=<dateTime>&period=<string>&symbols=<string>&base=<string>&prettyprint=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ohlc.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Start time for the OHLC period in ISO-8601 format (UTC only), e.g. 2023-01-01T00:00:00Z\n",
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) Period duration starting at start_time. Supported values include 1m, 5m, 15m, 30m, 1h, 12h, 1d, 1w, 1mo.\n",
+                      "key": "period",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated 3-letter currency codes to limit results",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Base currency (3-letter ISO code, defaults to USD)",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:25:26.000Z",
+              "updatedAt": "2026-07-28T02:25:26.000Z",
+              "uid": "35240-0d8d5b9a-8d1e-4476-bcba-34392da350ab"
+            },
+            {
+              "id": "6945ec2c-9354-4787-ab0c-414c6199598c",
+              "name": "Too many requests \u2014 rate limit or quota exceeded",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ohlc.json?app_id=<API Key>&start_time=<dateTime>&period=<string>&symbols=<string>&base=<string>&prettyprint=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ohlc.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Your unique App ID for authentication",
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "(Required) Start time for the OHLC period in ISO-8601 format (UTC only), e.g. 2023-01-01T00:00:00Z\n",
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) Period duration starting at start_time. Supported values include 1m, 5m, 15m, 30m, 1h, 12h, 1d, 1w, 1mo.\n",
+                      "key": "period",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated 3-letter currency codes to limit results",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Base currency (3-letter ISO code, defaults to USD)",
+                      "key": "base",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n",
+                      "key": "prettyprint",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<boolean>\",\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:25:26.000Z",
+              "updatedAt": "2026-07-28T02:25:26.000Z",
+              "uid": "35240-6945ec2c-9354-4787-ab0c-414c6199598c"
+            }
+          ],
+          "createdAt": "2026-07-28T02:25:26.000Z",
+          "updatedAt": "2026-07-28T02:25:26.000Z",
+          "uid": "35240-088c73aa-2864-4811-8db0-eaab53b50485"
+        }
+      ],
+      "id": "079e25fa-3814-4347-bd9f-3ea1f7146fac",
+      "createdAt": "2026-07-28T02:25:26.000Z",
+      "updatedAt": "2026-07-28T02:25:26.000Z",
+      "uid": "35240-079e25fa-3814-4347-bd9f-3ea1f7146fac"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "app_id",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://openexchangerates.org/api"
+    }
+  ]
+}
