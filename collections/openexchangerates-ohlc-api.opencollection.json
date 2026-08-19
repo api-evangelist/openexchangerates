@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Exchange Rates Convert OHLC API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "app_id",
+      "value": "{{app_id}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OHLC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get OHLC rates for a period",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/ohlc.json",
+            "params": [
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "ISO-8601 UTC timestamp marking the start of the requested period, for example 2017-07-17T08:30:00Z. Seconds must be zero."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "The requested period interval."
+              },
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Change the base currency to which all rates are relative, as a 3-letter currency code. Defaults to USD. Changing the base currency requires a paid plan."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to specific currencies as a comma-separated list of 3-letter currency codes."
+              },
+              {
+                "name": "prettyprint",
+                "value": "",
+                "type": "query",
+                "description": "Set to true for human-readable response formatting."
+              }
+            ]
+          },
+          "docs": "Returns open, high, low, close, and time-weighted average exchange rates for a given period. Data is available from December 19th, 2016. The start time must be an ISO-8601 UTC timestamp with zero seconds, aligned to the requested period, and the resulting end time cannot be in the future. Available to clients of the VIP Platinum tier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

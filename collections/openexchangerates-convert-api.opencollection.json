@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Exchange Rates Convert API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "app_id",
+      "value": "{{app_id}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Convert",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Convert a value between two currencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/convert/:value/:from/:to",
+            "params": [
+              {
+                "name": "value",
+                "value": "",
+                "type": "path",
+                "description": "The value to be converted."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "path",
+                "description": "The base (\"from\") currency as a 3-letter code."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "path",
+                "description": "The target (\"to\") currency as a 3-letter code."
+              },
+              {
+                "name": "prettyprint",
+                "value": "",
+                "type": "query",
+                "description": "Set to true for human-readable response formatting."
+              }
+            ]
+          },
+          "docs": "Converts a monetary value from one currency to another at the latest API rates, returning the original request, the exchange rate and timestamp used, and the converted amount. Available on the Unlimited plan. Validate returned values before using them anywhere transactions are processed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

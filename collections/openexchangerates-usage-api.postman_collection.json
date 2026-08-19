@@ -1,0 +1,179 @@
+{
+  "item": [
+    {
+      "id": "ca9a6cbd-477e-4de6-860c-ddc33e71fdb7",
+      "name": "Usage",
+      "description": {
+        "content": "Account plan and usage statistics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2fed0f0a-9858-4179-8952-99e1124ec84e",
+          "name": "Get account plan and usage statistics",
+          "request": {
+            "name": "Get account plan and usage statistics",
+            "description": {
+              "content": "Returns basic plan information and usage statistics for the given App ID - account status, plan name, quota, update frequency, enabled features, requests made this month, requests remaining, days elapsed and remaining, and daily average. Requests to this endpoint do not count against your usage volume.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "usage.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "prettyprint",
+                  "value": "false",
+                  "description": "Set to true for human-readable response formatting."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b40bd44-cd87-4c1d-8f16-0daacef4ede8",
+              "name": "Plan and usage details for the App ID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "usage.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"app_id\": \"string\",\n    \"status\": \"string\",\n    \"plan\": {\n      \"name\": \"string\",\n      \"quota\": \"string\",\n      \"update_frequency\": \"string\",\n      \"features\": {\n        \"base\": true,\n        \"symbols\": false,\n        \"experimental\": true,\n        \"time-series\": false,\n        \"convert\": false\n      }\n    },\n    \"usage\": {\n      \"requests\": 5973,\n      \"requests_quota\": 7914,\n      \"requests_remaining\": 8699,\n      \"days_elapsed\": 1424,\n      \"days_remaining\": 5073,\n      \"daily_average\": 1603\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7862857-379f-4b56-aa9d-f290860a79f2",
+              "name": "The App ID was missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "usage.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 401,\n  \"message\": \"invalid_app_id\",\n  \"description\": \"Invalid App ID provided - please sign up at https://openexchangerates.org/signup\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openexchangerates.org/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "app_id"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1545fb93-3dab-49b9-a22c-7f9f61378c36",
+    "name": "Open Exchange Rates Convert Usage API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Open Exchange Rates API provides live and historical foreign exchange (forex) rates for 200+ world currencies as plain-text JSON over HTTPS. Endpoints cover the latest rates, end-of-day historical rates back to January 1st, 1999, bulk time-series, currency conversion, OHLC candles, and account usage. Every data request requires an App ID, passed as the app_id query parameter or an \"Authorization: Token YOUR_APP_ID\" header. Feature access is tiered by plan - changing the base currency requires a paid plan, time-series requires Enterprise or Unlimited, convert requires Unlimited, and OHLC requires the VIP Platinum tier. Requests to currencies.json and usage.json do not count against your monthly quota.\n\nContact Support:\n Name: Open Exchange Rates",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Exchange Rates Convert Currencies API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "app_id",
+      "value": "{{app_id}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Currencies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get supported currencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/currencies.json",
+            "params": [
+              {
+                "name": "show_alternative",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to extend returned values with alternative, black market, and digital currency rates."
+              },
+              {
+                "name": "show_inactive",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include historical/inactive currencies."
+              },
+              {
+                "name": "prettyprint",
+                "value": "",
+                "type": "query",
+                "description": "Set to true for human-readable response formatting."
+              }
+            ]
+          },
+          "docs": "Returns a JSON map of all 3-letter currency codes available through the API to their full names. Requests to this endpoint do not require authentication and do not count against your account usage limit. Alternative currencies may not follow standard three-letter code formatting."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Exchange Rates Convert Historical Rates API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "app_id",
+      "value": "{{app_id}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Historical Rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get historical exchange rates for a date",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/historical/:date.json",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "The requested date in YYYY-MM-DD format (UTC)."
+              },
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Change the base currency to which all rates are relative, as a 3-letter currency code. Defaults to USD. Changing the base currency requires a paid plan."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to specific currencies as a comma-separated list of 3-letter currency codes."
+              },
+              {
+                "name": "show_alternative",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to extend returned values with alternative, black market, and digital currency rates."
+              },
+              {
+                "name": "prettyprint",
+                "value": "",
+                "type": "query",
+                "description": "Set to true for human-readable response formatting."
+              }
+            ]
+          },
+          "docs": "Returns the end-of-day exchange rates for a given UTC date, currently going back to January 1st, 1999. Rates are the final published values for the day through 23:59:59 UTC; requesting the current UTC date returns the most recent rates (matching latest.json). Base currency and symbols filtering are available on the Developer, Enterprise, and Unlimited plans."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

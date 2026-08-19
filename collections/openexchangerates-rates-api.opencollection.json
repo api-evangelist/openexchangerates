@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Exchange Convert Rates API",
+    "version": "0.7"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "app_id",
+      "value": "{{app_id}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get latest exchange rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/latest.json",
+            "params": [
+              {
+                "name": "app_id",
+                "value": "",
+                "type": "query",
+                "description": "Your unique App ID for authentication"
+              },
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Change base currency (3-letter ISO code). Defaults to USD. Non-USD base currencies may require a paid plan.\n"
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to specific currencies. Provide a comma-separated list of 3-letter ISO currency codes.\n"
+              },
+              {
+                "name": "prettyprint",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n"
+              },
+              {
+                "name": "show_alternative",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n"
+              }
+            ]
+          },
+          "docs": "Returns the latest available exchange rates for all supported currencies, updated approximately every hour. The base currency defaults to USD.\n"
+        },
+        {
+          "info": {
+            "name": "Get historical exchange rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/historical/:date.json",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Requested date in YYYY-MM-DD format"
+              },
+              {
+                "name": "app_id",
+                "value": "",
+                "type": "query",
+                "description": "Your unique App ID for authentication"
+              },
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Base currency (3-letter ISO code, defaults to USD)"
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated 3-letter ISO currency codes to limit results"
+              },
+              {
+                "name": "prettyprint",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n"
+              },
+              {
+                "name": "show_alternative",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n"
+              }
+            ]
+          },
+          "docs": "Returns exchange rates for a specific historical date. Data is available back to January 1, 1999. Rates reflect the last published values for the given UTC day (through 23:59:59 UTC).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

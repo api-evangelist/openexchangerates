@@ -1,0 +1,441 @@
+{
+  "item": [
+    {
+      "id": "06024bbc-c63e-403e-8b04-a17a8d86adeb",
+      "name": "Time Series",
+      "description": {
+        "content": "Bulk daily historical rates for a date range.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e58688d4-63c9-4dc7-ae40-1ad669e26f20",
+          "name": "Get bulk daily rates for a date range",
+          "request": {
+            "name": "Get bulk daily rates for a date range",
+            "description": {
+              "content": "Returns daily historical exchange rates for a given start and end date (both inclusive). The maximum query period currently allowed is one month, and each day in the range counts as one API request against your quota. Available on the Enterprise and Unlimited plans. Use the symbols parameter to limit results and reduce payload size.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "time-series.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<date>",
+                  "description": "(Required) The start date of the requested period (YYYY-MM-DD, inclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<date>",
+                  "description": "(Required) The end date of the requested period (YYYY-MM-DD, inclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "USD",
+                  "description": "Change the base currency to which all rates are relative, as a 3-letter currency code. Defaults to USD. Changing the base currency requires a paid plan."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "Limit results to specific currencies as a comma-separated list of 3-letter currency codes."
+                },
+                {
+                  "disabled": false,
+                  "key": "show_alternative",
+                  "value": "false",
+                  "description": "Set to true to extend returned values with alternative, black market, and digital currency rates."
+                },
+                {
+                  "disabled": false,
+                  "key": "prettyprint",
+                  "value": "false",
+                  "description": "Set to true for human-readable response formatting."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5208afca-2a50-4164-a9df-a0e14a6660e4",
+              "name": "Daily exchange rates for each date in the requested range.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "time-series.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "2013-01-01"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2013-01-31"
+                    },
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"disclaimer\": \"Usage subject to terms - https://openexchangerates.org/terms\",\n  \"license\": \"https://openexchangerates.org/license\",\n  \"start_date\": \"2013-01-01\",\n  \"end_date\": \"2013-01-03\",\n  \"base\": \"AUD\",\n  \"rates\": {\n    \"2013-01-01\": {\n      \"BTC\": 0.0778595876,\n      \"EUR\": 0.785518,\n      \"HKD\": 8.04136\n    },\n    \"2013-01-02\": {\n      \"BTC\": 0.0789399,\n      \"EUR\": 0.795034,\n      \"HKD\": 8.138096\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a595d7a-e8c3-47a0-96bc-f31a4bad5c1c",
+              "name": "The request was invalid, such as an invalid date or parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "time-series.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "2013-01-01"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2013-01-31"
+                    },
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 5629,\n  \"message\": \"string\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e43ebce-a92c-43f2-a932-45af434ed5c6",
+              "name": "The App ID was missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "time-series.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "2013-01-01"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2013-01-31"
+                    },
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 401,\n  \"message\": \"invalid_app_id\",\n  \"description\": \"Invalid App ID provided - please sign up at https://openexchangerates.org/signup\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfea68d9-86f9-41ee-9783-ec850c095143",
+              "name": "Access restricted, such as a feature not included in the current plan.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "time-series.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "2013-01-01"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2013-01-31"
+                    },
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 403,\n  \"message\": \"access_restricted\",\n  \"description\": \"Access restricted for the requested feature - please upgrade your plan.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1ae8dee-fe48-4c84-a576-23b126108fc0",
+              "name": "The monthly usage allowance was exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "time-series.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "2013-01-01"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2013-01-31"
+                    },
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 5629,\n  \"message\": \"string\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openexchangerates.org/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "app_id"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "10a1d81e-3594-4820-ab48-320535a15b15",
+    "name": "Open Exchange Rates Convert Time Series API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Open Exchange Rates API provides live and historical foreign exchange (forex) rates for 200+ world currencies as plain-text JSON over HTTPS. Endpoints cover the latest rates, end-of-day historical rates back to January 1st, 1999, bulk time-series, currency conversion, OHLC candles, and account usage. Every data request requires an App ID, passed as the app_id query parameter or an \"Authorization: Token YOUR_APP_ID\" header. Feature access is tiered by plan - changing the base currency requires a paid plan, time-series requires Enterprise or Unlimited, convert requires Unlimited, and OHLC requires the VIP Platinum tier. Requests to currencies.json and usage.json do not count against your monthly quota.\n\nContact Support:\n Name: Open Exchange Rates",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,676 @@
+{
+  "item": [
+    {
+      "id": "c0eaaa38-33a2-49ca-ac0d-5b186cf69a75",
+      "name": "Rates",
+      "description": {
+        "content": "Live and historical exchange rate data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4c965cc4-d21e-41a5-ba6f-cdbd94617d73",
+          "name": "Get latest exchange rates",
+          "request": {
+            "name": "Get latest exchange rates",
+            "description": {
+              "content": "Returns the latest available exchange rates for all supported currencies, updated approximately every hour. The base currency defaults to USD.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "latest.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "app_id",
+                  "value": "<string>",
+                  "description": "(Required) Your unique App ID for authentication"
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "Change base currency (3-letter ISO code). Defaults to USD. Non-USD base currencies may require a paid plan.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "Limit results to specific currencies. Provide a comma-separated list of 3-letter ISO currency codes.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "prettyprint",
+                  "value": "false",
+                  "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "show_alternative",
+                  "value": "false",
+                  "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c1ecf7f-ba0c-42c5-ad0b-f9eecc891579",
+              "name": "Successful response with latest exchange rates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "latest.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "app_id",
+                      "value": "your_app_id_here"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"disclaimer\": \"Usage subject to terms: https://openexchangerates.org/terms\",\n  \"license\": \"https://openexchangerates.org/license\",\n  \"timestamp\": 1686614400,\n  \"base\": \"USD\",\n  \"rates\": {\n    \"EUR\": 0.924123,\n    \"GBP\": 0.787456,\n    \"JPY\": 139.825,\n    \"CAD\": 1.3302\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e63bb318-ada1-4c31-92f9-04da59b79e49",
+              "name": "Bad request — invalid parameters or unavailable data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "latest.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "app_id",
+                      "value": "your_app_id_here"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 401,\n  \"message\": \"invalid_app_id\",\n  \"description\": \"Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8641b77e-46ad-4aa6-8daf-fe81015f5219",
+              "name": "Unauthorized — missing or invalid App ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "latest.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "app_id",
+                      "value": "your_app_id_here"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 401,\n  \"message\": \"invalid_app_id\",\n  \"description\": \"Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af6d6bd4-f09b-4d1d-a26a-6970be162663",
+              "name": "Too many requests — rate limit or quota exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "latest.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "app_id",
+                      "value": "your_app_id_here"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 401,\n  \"message\": \"invalid_app_id\",\n  \"description\": \"Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d1d0ad92-a68f-4a42-b6f2-84a1cb03f1e9",
+          "name": "Get historical exchange rates",
+          "request": {
+            "name": "Get historical exchange rates",
+            "description": {
+              "content": "Returns exchange rates for a specific historical date. Data is available back to January 1, 1999. Rates reflect the last published values for the given UTC day (through 23:59:59 UTC).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "historical",
+                "{{date}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "app_id",
+                  "value": "<string>",
+                  "description": "(Required) Your unique App ID for authentication"
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "Base currency (3-letter ISO code, defaults to USD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "Comma-separated 3-letter ISO currency codes to limit results"
+                },
+                {
+                  "disabled": false,
+                  "key": "prettyprint",
+                  "value": "false",
+                  "description": "Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "show_alternative",
+                  "value": "false",
+                  "description": "Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2eb4eecb-7ee6-4a28-a0b5-eb4ceb4d2ae1",
+              "name": "Successful response with historical exchange rates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "{{date}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "app_id",
+                      "value": "your_app_id_here"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"disclaimer\": \"Usage subject to terms: https://openexchangerates.org/terms\",\n  \"license\": \"https://openexchangerates.org/license\",\n  \"timestamp\": 1686614400,\n  \"base\": \"USD\",\n  \"rates\": {\n    \"EUR\": 0.924123,\n    \"GBP\": 0.787456,\n    \"JPY\": 139.825\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13d3f910-53c9-44a8-9cc9-1f581437bf53",
+              "name": "Bad request — invalid parameters or unavailable data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "{{date}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "app_id",
+                      "value": "your_app_id_here"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 401,\n  \"message\": \"invalid_app_id\",\n  \"description\": \"Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8c62c81-7fae-4e9a-9646-5007c86b9c95",
+              "name": "Unauthorized — missing or invalid App ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "{{date}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "app_id",
+                      "value": "your_app_id_here"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 401,\n  \"message\": \"invalid_app_id\",\n  \"description\": \"Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2432a059-4583-4e12-966e-287a403676be",
+              "name": "Too many requests — rate limit or quota exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "{{date}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "app_id",
+                      "value": "your_app_id_here"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 401,\n  \"message\": \"invalid_app_id\",\n  \"description\": \"Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openexchangerates.org/api",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Requested date in YYYY-MM-DD format",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<date>",
+      "key": "date"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "app_id"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d9354fe9-c593-42d6-ab45-b564af1cd5e2",
+    "name": "Open Exchange Convert Rates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful JSON API delivering live and historical foreign exchange rates for 200+ world and digital currencies. Supports latest rates, historical end-of-day rates, time-series queries, currency conversion, and OHLC data depending on subscription plan. Trusted by over 100,000 organizations globally since 2011, with historical coverage back to January 1, 1999.\n\n\nContact Support:\n Name: Open Exchange Rates Support\n Email: support@openexchangerates.org",
+      "type": "text/plain"
+    }
+  }
+}

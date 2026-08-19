@@ -1,0 +1,333 @@
+{
+  "item": [
+    {
+      "id": "a1f84630-51ed-42af-8c25-c0f0a3d81e67",
+      "name": "Latest Rates",
+      "description": {
+        "content": "Current exchange rates relative to a base currency.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ca69dd3e-888c-4320-892e-a7cd36037c14",
+          "name": "Get the latest exchange rates",
+          "request": {
+            "name": "Get the latest exchange rates",
+            "description": {
+              "content": "Returns the latest exchange rates available from the Open Exchange Rates API, relative to the base currency (USD by default). Rates refresh hourly on the Free and Developer plans, every 30 minutes on Enterprise, and every 5 minutes on Unlimited.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "latest.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "USD",
+                  "description": "Change the base currency to which all rates are relative, as a 3-letter currency code. Defaults to USD. Changing the base currency requires a paid plan."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "Limit results to specific currencies as a comma-separated list of 3-letter currency codes."
+                },
+                {
+                  "disabled": false,
+                  "key": "show_alternative",
+                  "value": "false",
+                  "description": "Set to true to extend returned values with alternative, black market, and digital currency rates."
+                },
+                {
+                  "disabled": false,
+                  "key": "prettyprint",
+                  "value": "false",
+                  "description": "Set to true for human-readable response formatting."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "85862c06-26b1-4c84-8ca0-10c653b6b3a7",
+              "name": "The latest exchange rates relative to the base currency.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "latest.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"disclaimer\": \"Usage subject to terms - https://openexchangerates.org/terms\",\n  \"license\": \"https://openexchangerates.org/license\",\n  \"timestamp\": 1449877801,\n  \"base\": \"USD\",\n  \"rates\": {\n    \"EUR\": 0.913492,\n    \"GBP\": 0.662839,\n    \"JPY\": 111.7962\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c3ee7c7-358f-445d-986e-8f7587c46c59",
+              "name": "The App ID was missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "latest.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 401,\n  \"message\": \"invalid_app_id\",\n  \"description\": \"Invalid App ID provided - please sign up at https://openexchangerates.org/signup\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5035c40-e364-44a7-a47a-f3b359e43ebd",
+              "name": "Access restricted, such as a feature not included in the current plan.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "latest.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 403,\n  \"message\": \"access_restricted\",\n  \"description\": \"Access restricted for the requested feature - please upgrade your plan.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c39bb2d6-7813-4c34-be8f-530bd1d9c2ed",
+              "name": "The monthly usage allowance was exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "latest.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": false,\n  \"status\": 3839,\n  \"message\": \"string\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openexchangerates.org/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "app_id"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a8f7d5a0-2cd4-4d0c-a1b9-4761ff66aebe",
+    "name": "Open Exchange Rates Convert Latest Rates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Open Exchange Rates API provides live and historical foreign exchange (forex) rates for 200+ world currencies as plain-text JSON over HTTPS. Endpoints cover the latest rates, end-of-day historical rates back to January 1st, 1999, bulk time-series, currency conversion, OHLC candles, and account usage. Every data request requires an App ID, passed as the app_id query parameter or an \"Authorization: Token YOUR_APP_ID\" header. Feature access is tiered by plan - changing the base currency requires a paid plan, time-series requires Enterprise or Unlimited, convert requires Unlimited, and OHLC requires the VIP Platinum tier. Requests to currencies.json and usage.json do not count against your monthly quota.\n\nContact Support:\n Name: Open Exchange Rates",
+      "type": "text/plain"
+    }
+  }
+}

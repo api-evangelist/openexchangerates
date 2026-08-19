@@ -1,0 +1,405 @@
+{
+  "item": [
+    {
+      "id": "b903fcf7-600b-4d5f-80d9-6638e80f3b22",
+      "name": "Historical Rates",
+      "description": {
+        "content": "End-of-day rates for any date back to 1999-01-01.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "46ffe3a7-ebcd-4315-81e1-e6321996828c",
+          "name": "Get historical exchange rates for a date",
+          "request": {
+            "name": "Get historical exchange rates for a date",
+            "description": {
+              "content": "Returns the end-of-day exchange rates for a given UTC date, currently going back to January 1st, 1999. Rates are the final published values for the day through 23:59:59 UTC; requesting the current UTC date returns the most recent rates (matching latest.json). Base currency and symbols filtering are available on the Developer, Enterprise, and Unlimited plans.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "historical",
+                "{{date}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "USD",
+                  "description": "Change the base currency to which all rates are relative, as a 3-letter currency code. Defaults to USD. Changing the base currency requires a paid plan."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "Limit results to specific currencies as a comma-separated list of 3-letter currency codes."
+                },
+                {
+                  "disabled": false,
+                  "key": "show_alternative",
+                  "value": "false",
+                  "description": "Set to true to extend returned values with alternative, black market, and digital currency rates."
+                },
+                {
+                  "disabled": false,
+                  "key": "prettyprint",
+                  "value": "false",
+                  "description": "Set to true for human-readable response formatting."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "00cc4541-2f0b-47dc-83cd-95adebca571b",
+              "name": "End-of-day exchange rates for the requested date.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "{{date}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"disclaimer\": \"string\",\n  \"license\": \"string\",\n  \"timestamp\": 3141,\n  \"base\": \"string\",\n  \"rates\": {\n    \"key_0\": 5840.944687816899,\n    \"key_1\": 8229.082031765867\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e0ca812-98ca-4af3-9aa9-92c6503901ff",
+              "name": "The request was invalid, such as an invalid date or parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "{{date}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": false,\n  \"status\": 6735,\n  \"message\": \"string\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3608dbfd-d3f3-4202-a380-574e3b73a3fe",
+              "name": "The App ID was missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "{{date}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 401,\n  \"message\": \"invalid_app_id\",\n  \"description\": \"Invalid App ID provided - please sign up at https://openexchangerates.org/signup\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30a0018d-557c-4dfd-97a0-d8f939a53f5d",
+              "name": "Access restricted, such as a feature not included in the current plan.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "{{date}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": true,\n  \"status\": 403,\n  \"message\": \"access_restricted\",\n  \"description\": \"Access restricted for the requested feature - please upgrade your plan.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d281d3a1-6a35-4cd8-a4a5-40f90fa2ac53",
+              "name": "The monthly usage allowance was exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "{{date}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "EUR"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "EUR,GBP,JPY"
+                    },
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": false,\n  \"status\": 6735,\n  \"message\": \"string\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openexchangerates.org/api",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The requested date in YYYY-MM-DD format (UTC).",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<date>",
+      "key": "date"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "app_id"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "544cf135-8992-4ce0-a286-e5b6b0531ea8",
+    "name": "Open Exchange Rates Convert Historical Rates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Open Exchange Rates API provides live and historical foreign exchange (forex) rates for 200+ world currencies as plain-text JSON over HTTPS. Endpoints cover the latest rates, end-of-day historical rates back to January 1st, 1999, bulk time-series, currency conversion, OHLC candles, and account usage. Every data request requires an App ID, passed as the app_id query parameter or an \"Authorization: Token YOUR_APP_ID\" header. Feature access is tiered by plan - changing the base currency requires a paid plan, time-series requires Enterprise or Unlimited, convert requires Unlimited, and OHLC requires the VIP Platinum tier. Requests to currencies.json and usage.json do not count against your monthly quota.\n\nContact Support:\n Name: Open Exchange Rates",
+      "type": "text/plain"
+    }
+  }
+}

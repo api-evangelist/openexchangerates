@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Exchange Rates Convert Usage API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "app_id",
+      "value": "{{app_id}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get account plan and usage statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/usage.json",
+            "params": [
+              {
+                "name": "prettyprint",
+                "value": "",
+                "type": "query",
+                "description": "Set to true for human-readable response formatting."
+              }
+            ]
+          },
+          "docs": "Returns basic plan information and usage statistics for the given App ID - account status, plan name, quota, update frequency, enabled features, requests made this month, requests remaining, days elapsed and remaining, and daily average. Requests to this endpoint do not count against your usage volume."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

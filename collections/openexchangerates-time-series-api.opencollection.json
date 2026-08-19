@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Exchange Rates Convert Time Series API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "app_id",
+      "value": "{{app_id}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Time Series",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get bulk daily rates for a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openexchangerates.org/api/time-series.json",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The start date of the requested period (YYYY-MM-DD, inclusive)."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the requested period (YYYY-MM-DD, inclusive)."
+              },
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Change the base currency to which all rates are relative, as a 3-letter currency code. Defaults to USD. Changing the base currency requires a paid plan."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to specific currencies as a comma-separated list of 3-letter currency codes."
+              },
+              {
+                "name": "show_alternative",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to extend returned values with alternative, black market, and digital currency rates."
+              },
+              {
+                "name": "prettyprint",
+                "value": "",
+                "type": "query",
+                "description": "Set to true for human-readable response formatting."
+              }
+            ]
+          },
+          "docs": "Returns daily historical exchange rates for a given start and end date (both inclusive). The maximum query period currently allowed is one month, and each day in the range counts as one API request against your quota. Available on the Enterprise and Unlimited plans. Use the symbols parameter to limit results and reduce payload size."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

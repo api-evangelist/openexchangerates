@@ -1,0 +1,155 @@
+{
+  "item": [
+    {
+      "id": "49a08a4b-388f-4184-a3da-fda8c65e50e4",
+      "name": "Currencies",
+      "description": {
+        "content": "List of supported currency symbols and names.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c5a79ab7-3e5f-4e50-9b67-d3aa7c9c2cfd",
+          "name": "Get supported currencies",
+          "request": {
+            "name": "Get supported currencies",
+            "description": {
+              "content": "Returns a JSON map of all 3-letter currency codes available through the API to their full names. Requests to this endpoint do not require authentication and do not count against your account usage limit. Alternative currencies may not follow standard three-letter code formatting.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "show_alternative",
+                  "value": "false",
+                  "description": "Set to true to extend returned values with alternative, black market, and digital currency rates."
+                },
+                {
+                  "disabled": false,
+                  "key": "show_inactive",
+                  "value": "false",
+                  "description": "Set to true to include historical/inactive currencies."
+                },
+                {
+                  "disabled": false,
+                  "key": "prettyprint",
+                  "value": "false",
+                  "description": "Set to true for human-readable response formatting."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "48348ed8-f7a2-4787-a018-ee1b8c5c24ef",
+              "name": "A map of currency codes to full currency names.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "show_alternative",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_inactive",
+                      "value": "false"
+                    },
+                    {
+                      "key": "prettyprint",
+                      "value": "false"
+                    },
+                    {
+                      "key": "app_id",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"AED\": \"United Arab Emirates Dirham\",\n  \"EUR\": \"Euro\",\n  \"GBP\": \"British Pound Sterling\",\n  \"USD\": \"United States Dollar\",\n  \"VND\": \"Vietnamese Dong\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://openexchangerates.org/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "app_id"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6e3fbab7-3f51-498e-9d71-2fbba597c21b",
+    "name": "Open Exchange Rates Convert Currencies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Open Exchange Rates API provides live and historical foreign exchange (forex) rates for 200+ world currencies as plain-text JSON over HTTPS. Endpoints cover the latest rates, end-of-day historical rates back to January 1st, 1999, bulk time-series, currency conversion, OHLC candles, and account usage. Every data request requires an App ID, passed as the app_id query parameter or an \"Authorization: Token YOUR_APP_ID\" header. Feature access is tiered by plan - changing the base currency requires a paid plan, time-series requires Enterprise or Unlimited, convert requires Unlimited, and OHLC requires the VIP Platinum tier. Requests to currencies.json and usage.json do not count against your monthly quota.\n\nContact Support:\n Name: Open Exchange Rates",
+      "type": "text/plain"
+    }
+  }
+}
