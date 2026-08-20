@@ -65,6 +65,8 @@ apis:
   humanURL: https://docs.openexchangerates.org/reference/latest-json
   baseURL: https://openexchangerates.org/api
   tags:
+  - Currency
+  tags_raw:
   - Currencies
   properties:
   - type: OpenAPI
