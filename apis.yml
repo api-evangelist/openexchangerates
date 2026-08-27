@@ -217,6 +217,16 @@ apis:
     url: https://docs.openexchangerates.org/reference/ohlc-json
   - type: APIReference
     url: https://docs.openexchangerates.org/reference/usage-json
+- aid: openexchangerates:openexchangerates-rates-api
+  name: Open Exchange Rates Rates API
+  description: Live and historical exchange rate data
+  humanURL: https://docs.openexchangerates.org/reference/latest-json
+  baseURL: https://openexchangerates.org/api
+  tags:
+  - Rates
+  properties:
+  - type: OpenAPI
+    url: openapi/openexchangerates-rates-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/openexchangerates-agentic-access.yml
