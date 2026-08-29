@@ -7,6 +7,18 @@ description: Open Exchange Rates provides a simple, reliable REST API for live a
   1st, 1999. The JSON API delivers latest rates, historical snapshots, bulk time-series, currency conversion,
   and OHLC data, authenticated with a per-account App ID and priced in published monthly tiers that start
   with a free plan.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
