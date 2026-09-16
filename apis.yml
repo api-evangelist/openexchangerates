@@ -43,7 +43,7 @@ tags:
 - Forex
 - Financial Data
 created: '2026-07-11'
-modified: '2026-08-08'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
 - aid: openexchangerates:openexchangerates-convert-api
@@ -231,7 +231,7 @@ apis:
   - type: APIReference
     url: https://docs.openexchangerates.org/reference/usage-json
 - aid: openexchangerates:openexchangerates-rates-api
-  name: Open Exchange Rates Rates API
+  name: Open Exchange Rates API
   description: Live and historical exchange rate data
   humanURL: https://docs.openexchangerates.org/reference/latest-json
   baseURL: https://openexchangerates.org/api
