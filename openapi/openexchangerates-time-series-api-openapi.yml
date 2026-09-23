@@ -1,199 +1,192 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Open Exchange Rates Convert Time Series API
-  description: 'The Open Exchange Rates API provides live and historical foreign exchange (forex) rates for 200+ world currencies as plain-text JSON over HTTPS. Endpoints cover the latest rates, end-of-day historical rates back to January 1st, 1999, bulk time-series, currency conversion, OHLC candles, and account usage. Every data request requires an App ID, passed as the app_id query parameter or an "Authorization: Token YOUR_APP_ID" header. Feature access is tiered by plan - changing the base currency requires a paid plan, time-series requires Enterprise or Unlimited, convert requires Unlimited, and OHLC requires the VIP Platinum tier. Requests to currencies.json and usage.json do not count against your monthly quota.'
-  version: '1.0'
-  contact:
-    name: Open Exchange Rates
-    url: https://openexchangerates.org
+  title: Open Exchange Rates Time Series API
+  description: RESTful JSON API delivering live and historical foreign exchange rates for 200+ world and digital currencies. Supports latest rates, historical end-of-day rates, time-series queries, currency conversion, and OHLC data depending on subscription plan. Trusted by over 100,000 organizations globally since 2011, with historical coverage back to January 1, 1999.
+  version: '0.7'
   termsOfService: https://openexchangerates.org/terms
+  contact:
+    name: Open Exchange Rates Support
+    url: https://support.openexchangerates.org
+    email: support@openexchangerates.org
+  license:
+    name: Proprietary
+    url: https://openexchangerates.org/terms
 servers:
 - url: https://openexchangerates.org/api
-  description: Production
+  description: Production API server
 security:
-- appIdQuery: []
-- appIdHeader: []
+- appId: []
 tags:
 - name: Time Series
-  description: Bulk daily historical rates for a date range.
+  description: Historical time-series data (Enterprise/Unlimited plans)
 paths:
   /time-series.json:
     get:
       operationId: getTimeSeries
+      summary: Get time-series exchange rates
+      description: Returns historical exchange rates for a given time period (date range). Rates are provided per day between start and end dates. Available to Enterprise and Unlimited plan subscribers.
       tags:
       - Time Series
-      summary: Get bulk daily rates for a date range
-      description: Returns daily historical exchange rates for a given start and end date (both inclusive). The maximum query period currently allowed is one month, and each day in the range counts as one API request against your quota. Available on the Enterprise and Unlimited plans. Use the symbols parameter to limit results and reduce payload size.
       parameters:
+      - $ref: '#/components/parameters/app_id'
       - name: start
         in: query
         required: true
-        description: The start date of the requested period (YYYY-MM-DD, inclusive).
+        description: Start date for the time series (YYYY-MM-DD format)
         schema:
           type: string
           format: date
-          example: '2013-01-01'
+          example: '2023-01-01'
       - name: end
         in: query
         required: true
-        description: The end date of the requested period (YYYY-MM-DD, inclusive).
+        description: End date for the time series (YYYY-MM-DD format)
         schema:
           type: string
           format: date
-          example: '2013-01-31'
-      - $ref: '#/components/parameters/Base'
-      - $ref: '#/components/parameters/Symbols'
-      - $ref: '#/components/parameters/ShowAlternative'
-      - $ref: '#/components/parameters/PrettyPrint'
+          example: '2023-01-31'
+      - name: symbols
+        in: query
+        required: false
+        description: Comma-separated 3-letter currency codes to limit results
+        schema:
+          type: string
+          example: EUR,GBP
+      - name: base
+        in: query
+        required: false
+        description: Base currency (3-letter ISO code, defaults to USD)
+        schema:
+          type: string
+          example: USD
+      - $ref: '#/components/parameters/show_alternative'
+      - $ref: '#/components/parameters/prettyprint'
       responses:
         '200':
-          description: Daily exchange rates for each date in the requested range.
+          description: Successful response with time-series exchange rates
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimeSeries'
-              example:
-                disclaimer: Usage subject to terms - https://openexchangerates.org/terms
-                license: https://openexchangerates.org/license
-                start_date: '2013-01-01'
-                end_date: '2013-01-03'
-                base: AUD
-                rates:
-                  '2013-01-01':
-                    BTC: 0.0778595876
-                    EUR: 0.785518
-                    HKD: 8.04136
-                  '2013-01-02':
-                    BTC: 0.0789399
-                    EUR: 0.795034
-                    HKD: 8.138096
+                $ref: '#/components/schemas/TimeSeriesResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/AccessRestricted'
         '429':
-          $ref: '#/components/responses/NotAllowed'
+          $ref: '#/components/responses/TooManyRequests'
 components:
-  parameters:
-    Base:
-      name: base
-      in: query
-      required: false
-      description: Change the base currency to which all rates are relative, as a 3-letter currency code. Defaults to USD. Changing the base currency requires a paid plan.
-      schema:
-        type: string
-        default: USD
-        example: EUR
-    Symbols:
-      name: symbols
-      in: query
-      required: false
-      description: Limit results to specific currencies as a comma-separated list of 3-letter currency codes.
-      schema:
-        type: string
-        example: EUR,GBP,JPY
-    PrettyPrint:
-      name: prettyprint
-      in: query
-      required: false
-      description: Set to true for human-readable response formatting.
-      schema:
-        type: boolean
-        default: false
-    ShowAlternative:
-      name: show_alternative
-      in: query
-      required: false
-      description: Set to true to extend returned values with alternative, black market, and digital currency rates.
-      schema:
-        type: boolean
-        default: false
   schemas:
-    TimeSeries:
+    ErrorResponse:
       type: object
+      description: Standard error response
+      properties:
+        error:
+          type: boolean
+          description: Always true for error responses
+          example: true
+        status:
+          type: integer
+          description: HTTP status code
+          example: 401
+        message:
+          type: string
+          description: Short error identifier
+          example: invalid_app_id
+        description:
+          type: string
+          description: Detailed human-readable error explanation
+          example: Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.
+    TimeSeriesResponse:
+      type: object
+      description: Time-series exchange rates response
       properties:
         disclaimer:
           type: string
+          description: Legal disclaimer URL
         license:
           type: string
+          description: License URL
         start_date:
           type: string
           format: date
-          description: The start date of the returned series (inclusive).
+          description: Start date of the time series
         end_date:
           type: string
           format: date
-          description: The end date of the returned series (inclusive).
+          description: End date of the time series
         base:
           type: string
-          description: The 3-letter code of the base currency.
+          description: Base currency code
         rates:
           type: object
-          description: Daily rate objects keyed by date (YYYY-MM-DD), each mapping currency codes to rates relative to the base currency.
+          description: 'Object mapping YYYY-MM-DD date strings to exchange rate objects
+
+            '
           additionalProperties:
             type: object
             additionalProperties:
               type: number
               format: double
-    Error:
-      type: object
-      properties:
-        error:
-          type: boolean
-        status:
-          type: integer
-          description: The HTTP status code.
-        message:
-          type: string
-          description: A machine-readable error code such as invalid_app_id or access_restricted.
-        description:
-          type: string
-          description: A human-readable explanation of the error.
+          example:
+            '2023-01-01':
+              EUR: 0.934567
+              GBP: 0.826789
+            '2023-01-02':
+              EUR: 0.9321
+              GBP: 0.825
   responses:
-    NotAllowed:
-      description: The monthly usage allowance was exceeded.
+    TooManyRequests:
+      description: Too many requests — rate limit or quota exceeded
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
-      description: The App ID was missing or invalid.
+      description: Unauthorized — missing or invalid App ID
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: true
-            status: 401
-            message: invalid_app_id
-            description: Invalid App ID provided - please sign up at https://openexchangerates.org/signup
+            $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
-      description: The request was invalid, such as an invalid date or parameters.
+      description: Bad request — invalid parameters or unavailable data
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-    AccessRestricted:
-      description: Access restricted, such as a feature not included in the current plan.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: true
-            status: 403
-            message: access_restricted
-            description: Access restricted for the requested feature - please upgrade your plan.
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    show_alternative:
+      name: show_alternative
+      in: query
+      required: false
+      description: 'Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.
+
+        '
+      schema:
+        type: boolean
+        default: false
+    prettyprint:
+      name: prettyprint
+      in: query
+      required: false
+      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
+
+        '
+      schema:
+        type: boolean
+        default: false
+    app_id:
+      name: app_id
+      in: query
+      required: true
+      description: Your unique App ID for authentication
+      schema:
+        type: string
+        example: your_app_id_here
   securitySchemes:
-    appIdQuery:
+    appId:
       type: apiKey
       in: query
       name: app_id
-      description: Your unique App ID, passed as a query parameter.
-    appIdHeader:
-      type: apiKey
-      in: header
-      name: Authorization
-      description: 'Your unique App ID, passed as a header: Authorization: Token YOUR_APP_ID.'
+      description: 'Your unique App ID obtained from openexchangerates.org. Required for all endpoints except /currencies.json.
+
+        '

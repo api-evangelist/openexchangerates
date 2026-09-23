@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Open Exchange Convert Rates API
-  description: 'RESTful JSON API delivering live and historical foreign exchange rates for 200+ world and digital currencies. Supports latest rates, historical end-of-day rates, time-series queries, currency conversion, and OHLC data depending on subscription plan. Trusted by over 100,000 organizations globally since 2011, with historical coverage back to January 1, 1999.
-
-    '
+  title: Open Exchange Rates API
+  description: RESTful JSON API delivering live and historical foreign exchange rates for 200+ world and digital currencies. Supports latest rates, historical end-of-day rates, time-series queries, currency conversion, and OHLC data depending on subscription plan. Trusted by over 100,000 organizations globally since 2011, with historical coverage back to January 1, 1999.
   version: '0.7'
   termsOfService: https://openexchangerates.org/terms
   contact:
@@ -26,9 +24,7 @@ paths:
     get:
       operationId: getLatestRates
       summary: Get latest exchange rates
-      description: 'Returns the latest available exchange rates for all supported currencies, updated approximately every hour. The base currency defaults to USD.
-
-        '
+      description: Returns the latest available exchange rates for all supported currencies, updated approximately every hour. The base currency defaults to USD.
       tags:
       - Rates
       parameters:
@@ -80,9 +76,7 @@ paths:
     get:
       operationId: getHistoricalRates
       summary: Get historical exchange rates
-      description: 'Returns exchange rates for a specific historical date. Data is available back to January 1, 1999. Rates reflect the last published values for the given UTC day (through 23:59:59 UTC).
-
-        '
+      description: Returns exchange rates for a specific historical date. Data is available back to January 1, 1999. Rates reflect the last published values for the given UTC day (through 23:59:59 UTC).
       tags:
       - Rates
       parameters:
@@ -125,36 +119,27 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  parameters:
-    show_alternative:
-      name: show_alternative
-      in: query
-      required: false
-      description: 'Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.
-
-        '
-      schema:
-        type: boolean
-        default: false
-    app_id:
-      name: app_id
-      in: query
-      required: true
-      description: Your unique App ID for authentication
-      schema:
-        type: string
-        example: your_app_id_here
-    prettyprint:
-      name: prettyprint
-      in: query
-      required: false
-      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
-
-        '
-      schema:
-        type: boolean
-        default: false
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: boolean
+          description: Always true for error responses
+          example: true
+        status:
+          type: integer
+          description: HTTP status code
+          example: 401
+        message:
+          type: string
+          description: Short error identifier
+          example: invalid_app_id
+        description:
+          type: string
+          description: Detailed human-readable error explanation
+          example: Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.
     ExchangeRatesResponse:
       type: object
       description: Standard exchange rates response
@@ -193,27 +178,13 @@ components:
       - timestamp
       - base
       - rates
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: boolean
-          description: Always true for error responses
-          example: true
-        status:
-          type: integer
-          description: HTTP status code
-          example: 401
-        message:
-          type: string
-          description: Short error identifier
-          example: invalid_app_id
-        description:
-          type: string
-          description: Detailed human-readable error explanation
-          example: Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.
   responses:
+    TooManyRequests:
+      description: Too many requests — rate limit or quota exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized — missing or invalid App ID
       content:
@@ -226,12 +197,35 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Too many requests — rate limit or quota exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    show_alternative:
+      name: show_alternative
+      in: query
+      required: false
+      description: 'Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.
+
+        '
+      schema:
+        type: boolean
+        default: false
+    prettyprint:
+      name: prettyprint
+      in: query
+      required: false
+      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
+
+        '
+      schema:
+        type: boolean
+        default: false
+    app_id:
+      name: app_id
+      in: query
+      required: true
+      description: Your unique App ID for authentication
+      schema:
+        type: string
+        example: your_app_id_here
   securitySchemes:
     appId:
       type: apiKey

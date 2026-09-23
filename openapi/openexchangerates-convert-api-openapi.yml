@@ -1,173 +1,187 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Open Exchange Rates Convert API
-  description: 'The Open Exchange Rates API provides live and historical foreign exchange (forex) rates for 200+ world currencies as plain-text JSON over HTTPS. Endpoints cover the latest rates, end-of-day historical rates back to January 1st, 1999, bulk time-series, currency conversion, OHLC candles, and account usage. Every data request requires an App ID, passed as the app_id query parameter or an "Authorization: Token YOUR_APP_ID" header. Feature access is tiered by plan - changing the base currency requires a paid plan, time-series requires Enterprise or Unlimited, convert requires Unlimited, and OHLC requires the VIP Platinum tier. Requests to currencies.json and usage.json do not count against your monthly quota.'
-  version: '1.0'
-  contact:
-    name: Open Exchange Rates
-    url: https://openexchangerates.org
+  description: RESTful JSON API delivering live and historical foreign exchange rates for 200+ world and digital currencies. Supports latest rates, historical end-of-day rates, time-series queries, currency conversion, and OHLC data depending on subscription plan. Trusted by over 100,000 organizations globally since 2011, with historical coverage back to January 1, 1999.
+  version: '0.7'
   termsOfService: https://openexchangerates.org/terms
+  contact:
+    name: Open Exchange Rates Support
+    url: https://support.openexchangerates.org
+    email: support@openexchangerates.org
+  license:
+    name: Proprietary
+    url: https://openexchangerates.org/terms
 servers:
 - url: https://openexchangerates.org/api
-  description: Production
+  description: Production API server
 security:
-- appIdQuery: []
-- appIdHeader: []
+- appId: []
 tags:
 - name: Convert
-  description: Convert a value between two currencies at the latest rates.
+  description: Currency conversion (Unlimited plan)
 paths:
   /convert/{value}/{from}/{to}:
     get:
       operationId: convertCurrency
+      summary: Convert a currency amount
+      description: Converts a monetary amount between two currencies using the latest available exchange rate. Uses a REST-based approach with an alternate response format. Available to Unlimited plan subscribers only.
       tags:
       - Convert
-      summary: Convert a value between two currencies
-      description: Converts a monetary value from one currency to another at the latest API rates, returning the original request, the exchange rate and timestamp used, and the converted amount. Available on the Unlimited plan. Validate returned values before using them anywhere transactions are processed.
       parameters:
       - name: value
         in: path
         required: true
-        description: The value to be converted.
+        description: The monetary amount to convert
         schema:
-          type: integer
-          format: int32
-          example: 19999
+          type: number
+          example: 100
       - name: from
         in: path
         required: true
-        description: The base ("from") currency as a 3-letter code.
+        description: Source currency 3-letter ISO code
         schema:
           type: string
-          example: GBP
+          example: USD
       - name: to
         in: path
         required: true
-        description: The target ("to") currency as a 3-letter code.
+        description: Target currency 3-letter ISO code
         schema:
           type: string
           example: EUR
-      - $ref: '#/components/parameters/PrettyPrint'
+      - $ref: '#/components/parameters/app_id'
+      - $ref: '#/components/parameters/prettyprint'
       responses:
         '200':
-          description: The conversion result with the rate and timestamp used.
+          description: Successful conversion result
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Conversion'
+                $ref: '#/components/schemas/ConvertResponse'
               example:
-                disclaimer: Usage subject to terms - https://openexchangerates.org/terms
+                disclaimer: 'Usage subject to terms: https://openexchangerates.org/terms'
                 license: https://openexchangerates.org/license
                 request:
-                  query: /convert/19999/GBP/EUR
-                  amount: 19999
-                  from: GBP
+                  query: /convert/100/USD/EUR
+                  amount: 100
+                  from: USD
                   to: EUR
                 meta:
-                  timestamp: 1449885661
-                  rate: 1.383702
-                response: 27673.975338
+                  timestamp: 1686614400
+                  rate: 0.924123
+                response: 92.4123
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/AccessRestricted'
         '429':
-          $ref: '#/components/responses/NotAllowed'
+          $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    NotAllowed:
-      description: The monthly usage allowance was exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The App ID was missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: true
-            status: 401
-            message: invalid_app_id
-            description: Invalid App ID provided - please sign up at https://openexchangerates.org/signup
-    AccessRestricted:
-      description: Access restricted, such as a feature not included in the current plan.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: true
-            status: 403
-            message: access_restricted
-            description: Access restricted for the requested feature - please upgrade your plan.
   schemas:
-    Error:
+    ErrorResponse:
       type: object
+      description: Standard error response
       properties:
         error:
           type: boolean
+          description: Always true for error responses
+          example: true
         status:
           type: integer
-          description: The HTTP status code.
+          description: HTTP status code
+          example: 401
         message:
           type: string
-          description: A machine-readable error code such as invalid_app_id or access_restricted.
+          description: Short error identifier
+          example: invalid_app_id
         description:
           type: string
-          description: A human-readable explanation of the error.
-    Conversion:
+          description: Detailed human-readable error explanation
+          example: Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.
+    ConvertResponse:
       type: object
+      description: Currency conversion response
       properties:
         disclaimer:
           type: string
+          description: Legal disclaimer URL
         license:
           type: string
+          description: License URL
         request:
           type: object
-          description: The original conversion request.
+          description: Details of the conversion request
           properties:
             query:
               type: string
+              description: The request path
             amount:
               type: number
+              description: The amount that was converted
             from:
               type: string
+              description: Source currency code
             to:
               type: string
+              description: Target currency code
         meta:
           type: object
-          description: The exchange rate and timestamp used for the conversion.
+          description: Metadata about the conversion
           properties:
             timestamp:
               type: integer
-              format: int64
+              description: Unix timestamp of the exchange rate used
             rate:
               type: number
               format: double
+              description: Exchange rate used for conversion
         response:
           type: number
           format: double
-          description: The converted value.
+          description: The converted amount
+  responses:
+    TooManyRequests:
+      description: Too many requests — rate limit or quota exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized — missing or invalid App ID
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request — invalid parameters or unavailable data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    PrettyPrint:
+    prettyprint:
       name: prettyprint
       in: query
       required: false
-      description: Set to true for human-readable response formatting.
+      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
+
+        '
       schema:
         type: boolean
         default: false
+    app_id:
+      name: app_id
+      in: query
+      required: true
+      description: Your unique App ID for authentication
+      schema:
+        type: string
+        example: your_app_id_here
   securitySchemes:
-    appIdQuery:
+    appId:
       type: apiKey
       in: query
       name: app_id
-      description: Your unique App ID, passed as a query parameter.
-    appIdHeader:
-      type: apiKey
-      in: header
-      name: Authorization
-      description: 'Your unique App ID, passed as a header: Authorization: Token YOUR_APP_ID.'
+      description: 'Your unique App ID obtained from openexchangerates.org. Required for all endpoints except /currencies.json.
+
+        '
