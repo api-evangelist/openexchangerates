@@ -134,26 +134,15 @@ components:
             '2023-01-02':
               EUR: 0.9321
               GBP: 0.825
-  responses:
-    TooManyRequests:
-      description: Too many requests — rate limit or quota exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized — missing or invalid App ID
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request — invalid parameters or unavailable data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
+    app_id:
+      name: app_id
+      in: query
+      required: true
+      description: Your unique App ID for authentication
+      schema:
+        type: string
+        example: your_app_id_here
     show_alternative:
       name: show_alternative
       in: query
@@ -174,14 +163,25 @@ components:
       schema:
         type: boolean
         default: false
-    app_id:
-      name: app_id
-      in: query
-      required: true
-      description: Your unique App ID for authentication
-      schema:
-        type: string
-        example: your_app_id_here
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid App ID
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too many requests — rate limit or quota exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request — invalid parameters or unavailable data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     appId:
       type: apiKey

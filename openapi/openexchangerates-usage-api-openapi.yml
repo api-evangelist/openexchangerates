@@ -63,21 +63,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Plan:
-      type: object
-      description: Subscription plan details
-      properties:
-        name:
-          type: string
-          description: Plan name (e.g., Developer, Enterprise, Unlimited)
-        quota:
-          type: string
-          description: Human-readable request quota description
-        update_frequency:
-          type: string
-          description: Rate update frequency in seconds (e.g., "3600s")
-        features:
-          $ref: '#/components/schemas/PlanFeatures'
     ErrorResponse:
       type: object
       description: Standard error response
@@ -98,15 +83,6 @@ components:
           type: string
           description: Detailed human-readable error explanation
           example: Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.
-    UsageResponse:
-      type: object
-      description: API usage and plan response
-      properties:
-        status:
-          type: string
-          description: Request status
-        data:
-          $ref: '#/components/schemas/UsageData'
     UsageStats:
       type: object
       description: Usage statistics for the current billing period
@@ -129,20 +105,6 @@ components:
         daily_average:
           type: number
           description: Average daily request count so far this period
-    UsageData:
-      type: object
-      description: Combined plan and usage data
-      properties:
-        app_id:
-          type: string
-          description: The App ID these statistics relate to
-        status:
-          type: string
-          description: Account status (e.g., active, suspended)
-        plan:
-          $ref: '#/components/schemas/Plan'
-        usage:
-          $ref: '#/components/schemas/UsageStats'
     PlanFeatures:
       type: object
       description: Features enabled for the subscription plan
@@ -162,14 +124,53 @@ components:
         convert:
           type: boolean
           description: Whether the convert endpoint is available
-  responses:
-    Unauthorized:
-      description: Unauthorized — missing or invalid App ID
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    Plan:
+      type: object
+      description: Subscription plan details
+      properties:
+        name:
+          type: string
+          description: Plan name (e.g., Developer, Enterprise, Unlimited)
+        quota:
+          type: string
+          description: Human-readable request quota description
+        update_frequency:
+          type: string
+          description: Rate update frequency in seconds (e.g., "3600s")
+        features:
+          $ref: '#/components/schemas/PlanFeatures'
+    UsageData:
+      type: object
+      description: Combined plan and usage data
+      properties:
+        app_id:
+          type: string
+          description: The App ID these statistics relate to
+        status:
+          type: string
+          description: Account status (e.g., active, suspended)
+        plan:
+          $ref: '#/components/schemas/Plan'
+        usage:
+          $ref: '#/components/schemas/UsageStats'
+    UsageResponse:
+      type: object
+      description: API usage and plan response
+      properties:
+        status:
+          type: string
+          description: Request status
+        data:
+          $ref: '#/components/schemas/UsageData'
   parameters:
+    app_id:
+      name: app_id
+      in: query
+      required: true
+      description: Your unique App ID for authentication
+      schema:
+        type: string
+        example: your_app_id_here
     prettyprint:
       name: prettyprint
       in: query
@@ -180,14 +181,13 @@ components:
       schema:
         type: boolean
         default: false
-    app_id:
-      name: app_id
-      in: query
-      required: true
-      description: Your unique App ID for authentication
-      schema:
-        type: string
-        example: your_app_id_here
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid App ID
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     appId:
       type: apiKey

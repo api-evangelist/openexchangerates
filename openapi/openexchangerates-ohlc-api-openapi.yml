@@ -98,30 +98,6 @@ components:
           type: string
           description: Detailed human-readable error explanation
           example: Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.
-    OHLCRate:
-      type: object
-      description: OHLC rate data for a single currency
-      properties:
-        open:
-          type: number
-          format: double
-          description: Opening rate at the start of the period
-        high:
-          type: number
-          format: double
-          description: Highest rate recorded during the period
-        low:
-          type: number
-          format: double
-          description: Lowest rate recorded during the period
-        close:
-          type: number
-          format: double
-          description: Closing rate at the end of the period
-        average:
-          type: number
-          format: double
-          description: Average rate over the period
     OHLCResponse:
       type: object
       description: OHLC exchange rates response
@@ -150,26 +126,39 @@ components:
             '
           additionalProperties:
             $ref: '#/components/schemas/OHLCRate'
-  responses:
-    TooManyRequests:
-      description: Too many requests — rate limit or quota exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized — missing or invalid App ID
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request — invalid parameters or unavailable data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    OHLCRate:
+      type: object
+      description: OHLC rate data for a single currency
+      properties:
+        open:
+          type: number
+          format: double
+          description: Opening rate at the start of the period
+        high:
+          type: number
+          format: double
+          description: Highest rate recorded during the period
+        low:
+          type: number
+          format: double
+          description: Lowest rate recorded during the period
+        close:
+          type: number
+          format: double
+          description: Closing rate at the end of the period
+        average:
+          type: number
+          format: double
+          description: Average rate over the period
   parameters:
+    app_id:
+      name: app_id
+      in: query
+      required: true
+      description: Your unique App ID for authentication
+      schema:
+        type: string
+        example: your_app_id_here
     prettyprint:
       name: prettyprint
       in: query
@@ -180,14 +169,25 @@ components:
       schema:
         type: boolean
         default: false
-    app_id:
-      name: app_id
-      in: query
-      required: true
-      description: Your unique App ID for authentication
-      schema:
-        type: string
-        example: your_app_id_here
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid App ID
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too many requests — rate limit or quota exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request — invalid parameters or unavailable data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     appId:
       type: apiKey

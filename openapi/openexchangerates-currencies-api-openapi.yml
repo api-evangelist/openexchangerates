@@ -53,6 +53,27 @@ paths:
                 JPY: Japanese Yen
                 CAD: Canadian Dollar
 components:
+  parameters:
+    show_alternative:
+      name: show_alternative
+      in: query
+      required: false
+      description: 'Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.
+
+        '
+      schema:
+        type: boolean
+        default: false
+    prettyprint:
+      name: prettyprint
+      in: query
+      required: false
+      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
+
+        '
+      schema:
+        type: boolean
+        default: false
   schemas:
     CurrenciesResponse:
       type: object
@@ -65,27 +86,6 @@ components:
         USD: United States Dollar
         EUR: Euro
         GBP: British Pound Sterling
-  parameters:
-    prettyprint:
-      name: prettyprint
-      in: query
-      required: false
-      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
-
-        '
-      schema:
-        type: boolean
-        default: false
-    show_alternative:
-      name: show_alternative
-      in: query
-      required: false
-      description: 'Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.
-
-        '
-      schema:
-        type: boolean
-        default: false
   securitySchemes:
     appId:
       type: apiKey
