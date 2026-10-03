@@ -77,27 +77,26 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  parameters:
+    prettyprint:
+      name: prettyprint
+      in: query
+      required: false
+      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
+
+        '
+      schema:
+        type: boolean
+        default: false
+    app_id:
+      name: app_id
+      in: query
+      required: true
+      description: Your unique App ID for authentication
+      schema:
+        type: string
+        example: your_app_id_here
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: boolean
-          description: Always true for error responses
-          example: true
-        status:
-          type: integer
-          description: HTTP status code
-          example: 401
-        message:
-          type: string
-          description: Short error identifier
-          example: invalid_app_id
-        description:
-          type: string
-          description: Detailed human-readable error explanation
-          example: Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.
     OHLCResponse:
       type: object
       description: OHLC exchange rates response
@@ -150,34 +149,35 @@ components:
           type: number
           format: double
           description: Average rate over the period
-  parameters:
-    app_id:
-      name: app_id
-      in: query
-      required: true
-      description: Your unique App ID for authentication
-      schema:
-        type: string
-        example: your_app_id_here
-    prettyprint:
-      name: prettyprint
-      in: query
-      required: false
-      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
-
-        '
-      schema:
-        type: boolean
-        default: false
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: boolean
+          description: Always true for error responses
+          example: true
+        status:
+          type: integer
+          description: HTTP status code
+          example: 401
+        message:
+          type: string
+          description: Short error identifier
+          example: invalid_app_id
+        description:
+          type: string
+          description: Detailed human-readable error explanation
+          example: Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.
   responses:
-    Unauthorized:
-      description: Unauthorized — missing or invalid App ID
+    TooManyRequests:
+      description: Too many requests — rate limit or quota exceeded
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Too many requests — rate limit or quota exceeded
+    Unauthorized:
+      description: Unauthorized — missing or invalid App ID
       content:
         application/json:
           schema:

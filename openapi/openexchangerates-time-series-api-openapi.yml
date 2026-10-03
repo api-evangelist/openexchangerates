@@ -75,27 +75,55 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    TooManyRequests:
+      description: Too many requests — rate limit or quota exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized — missing or invalid App ID
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request — invalid parameters or unavailable data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    prettyprint:
+      name: prettyprint
+      in: query
+      required: false
+      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
+
+        '
+      schema:
+        type: boolean
+        default: false
+    app_id:
+      name: app_id
+      in: query
+      required: true
+      description: Your unique App ID for authentication
+      schema:
+        type: string
+        example: your_app_id_here
+    show_alternative:
+      name: show_alternative
+      in: query
+      required: false
+      description: 'Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.
+
+        '
+      schema:
+        type: boolean
+        default: false
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: boolean
-          description: Always true for error responses
-          example: true
-        status:
-          type: integer
-          description: HTTP status code
-          example: 401
-        message:
-          type: string
-          description: Short error identifier
-          example: invalid_app_id
-        description:
-          type: string
-          description: Detailed human-readable error explanation
-          example: Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.
     TimeSeriesResponse:
       type: object
       description: Time-series exchange rates response
@@ -134,54 +162,26 @@ components:
             '2023-01-02':
               EUR: 0.9321
               GBP: 0.825
-  parameters:
-    app_id:
-      name: app_id
-      in: query
-      required: true
-      description: Your unique App ID for authentication
-      schema:
-        type: string
-        example: your_app_id_here
-    show_alternative:
-      name: show_alternative
-      in: query
-      required: false
-      description: 'Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.
-
-        '
-      schema:
-        type: boolean
-        default: false
-    prettyprint:
-      name: prettyprint
-      in: query
-      required: false
-      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
-
-        '
-      schema:
-        type: boolean
-        default: false
-  responses:
-    Unauthorized:
-      description: Unauthorized — missing or invalid App ID
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Too many requests — rate limit or quota exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request — invalid parameters or unavailable data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: boolean
+          description: Always true for error responses
+          example: true
+        status:
+          type: integer
+          description: HTTP status code
+          example: 401
+        message:
+          type: string
+          description: Short error identifier
+          example: invalid_app_id
+        description:
+          type: string
+          description: Detailed human-readable error explanation
+          example: Invalid App ID provided. Please sign up at https://openexchangerates.org/signup, or contact support@openexchangerates.org.
   securitySchemes:
     appId:
       type: apiKey

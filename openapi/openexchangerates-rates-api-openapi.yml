@@ -119,6 +119,54 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    TooManyRequests:
+      description: Too many requests — rate limit or quota exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized — missing or invalid App ID
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request — invalid parameters or unavailable data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    prettyprint:
+      name: prettyprint
+      in: query
+      required: false
+      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
+
+        '
+      schema:
+        type: boolean
+        default: false
+    app_id:
+      name: app_id
+      in: query
+      required: true
+      description: Your unique App ID for authentication
+      schema:
+        type: string
+        example: your_app_id_here
+    show_alternative:
+      name: show_alternative
+      in: query
+      required: false
+      description: 'Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.
+
+        '
+      schema:
+        type: boolean
+        default: false
   schemas:
     ErrorResponse:
       type: object
@@ -178,54 +226,6 @@ components:
       - timestamp
       - base
       - rates
-  parameters:
-    app_id:
-      name: app_id
-      in: query
-      required: true
-      description: Your unique App ID for authentication
-      schema:
-        type: string
-        example: your_app_id_here
-    show_alternative:
-      name: show_alternative
-      in: query
-      required: false
-      description: 'Set to true to extend returned values with alternative, black market and digital currency rates. Defaults to false.
-
-        '
-      schema:
-        type: boolean
-        default: false
-    prettyprint:
-      name: prettyprint
-      in: query
-      required: false
-      description: 'Set to true to enable human-readable (pretty-printed) JSON output for debugging. Defaults to false to minimize response size.
-
-        '
-      schema:
-        type: boolean
-        default: false
-  responses:
-    Unauthorized:
-      description: Unauthorized — missing or invalid App ID
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Too many requests — rate limit or quota exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request — invalid parameters or unavailable data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     appId:
       type: apiKey
