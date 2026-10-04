@@ -1,0 +1,27 @@
+slug: openexchangerates
+provider: Open Exchange Rates
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Usage
+  spec_file: openexchangerates-usage-api-openapi.yml
+  capability_id: BC-4270.50
+  capability_id_l1: BC-4270
+  capability_name: API Consumption Governance
+  confidence: 0.75
+  evidence: 'GET /usage.json  getUsage  Get API usage statistics; schemas: UsageData, UsageStats, PlanFeatures,
+    Plan'
+  reason: Exposes API request counts/quota status tied to the account's subscription plan and plan features,
+    which is precisely API consumption governance — quotas, usage analytics, and mapping consumption to
+    commercial plan tiers. Some chance it is better read as plan/entitlement surfacing (BC-4240), hence
+    not higher.

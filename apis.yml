@@ -189,6 +189,9 @@ apis:
   - type: OpenAPI
     url: openapi/openexchangerates-rates-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/openexchangerates-capability-edges.yml
+  name: Open Exchange Rates Business Capability Map
 - type: AgenticAccess
   url: agentic-access/openexchangerates-agentic-access.yml
 - type: DomainSecurity
