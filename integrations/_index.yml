@@ -57,7 +57,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: openexchangerates-fivetran
   label: Fivetran
@@ -83,7 +83,7 @@
     - connectors/applications/open-exchange-rates
     vendor_link: https://openexchangerates.org/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: openexchangerates-meltano
   label: Meltano
@@ -114,5 +114,5 @@
     - gold
     - silver
     builder: 'community (Meltano Hub variant maintainers: hotgluexyz, penny-ai)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
