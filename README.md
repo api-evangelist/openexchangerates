@@ -1,4 +1,4 @@
-# Open Exchange Rates (openexchangerates)
+# Open Exchange Rates
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,182 +64,172 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Open Exchange Rates provides a simple, reliable REST API for live and historical foreign exchange (forex) rates covering 200+ world currencies, with end-of-day historical data back to January 1st, 1999. The JSON API delivers latest rates, historical snapshots, bulk time-series, currency conversion, and OHLC data over HTTPS from `https://openexchangerates.org/api`.
+Open Exchange Rates provides a simple, reliable REST API for live and historical foreign exchange (forex) rates covering 200+ world currencies, with end-of-day historical data back to January 1st, 1999. The JSON API delivers latest rates, historical snapshots, bulk time-series, currency conversion, and OHLC data, authenticated with a per-account App ID and priced in published monthly tiers that start with a free plan.
 
-Access requires a free account and an **App ID** (`app_id`), passed as a query parameter or an `Authorization: Token` header on every request. Pricing is published in monthly tiers: a Free plan (1,000 requests/month, hourly updates, USD base only), Developer ($12/month, 10,000 requests, all base currencies), Enterprise ($47/month, 100,000 requests, 30-minute updates, time-series), Unlimited ($97/month, unlimited requests, 5-minute updates, conversion), and custom VIP levels (up to 1-second updates, bid-ask, OHLC, intra-day historical). Feature availability is tiered - changing the base currency requires a paid plan, time-series requires Enterprise or above, convert requires Unlimited, and OHLC is VIP Platinum only. The `currencies.json` and `usage.json` endpoints are free and do not count against your quota.
+**Areas:** Foreign Exchange · Currency · Exchange Rates · Currency Conversion · Financial Data
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/openexchangerates/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/openexchangerates/refs/heads/main/apis.yml)
+## Open Exchange Rates on APIs.io
 
-## Tags
+Everything profiled for Open Exchange Rates is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/openexchangerates/](https://apis.io/providers/openexchangerates/)** — or go straight to one of the APIs or properties below.
 
-- Foreign Exchange
-- Currency
-- Exchange Rates
-- FX
-- Currency Conversion
-- Forex
-- Financial Data
+### APIs (6)
 
-## Timestamps
+- [Open Exchange Rates Convert API](https://apis.io/apis/openexchangerates/openexchangerates-convert-api/) — Convert a value between two currencies at the latest rates.
+- [Open Exchange Rates Currencies API](https://apis.io/apis/openexchangerates/openexchangerates-currencies-api/) — List of supported currency symbols and names.
+- [Open Exchange Rates OHLC API](https://apis.io/apis/openexchangerates/openexchangerates-ohlc-api/) — Open, high, low, close, and average rates for a period.
+- [Open Exchange Rates Time Series API](https://apis.io/apis/openexchangerates/openexchangerates-time-series-api/) — Bulk daily historical rates for a date range.
+- [Open Exchange Rates Usage API](https://apis.io/apis/openexchangerates/openexchangerates-usage-api/) — Account plan and usage statistics.
+- [Open Exchange Rates API](https://apis.io/apis/openexchangerates/openexchangerates-rates-api/) — Live and historical exchange rate data
 
-- **Created:** 2026-07-11
-- **Modified:** 2026-07-11
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Open Exchange Rates Latest Rates API
+#### Agentic access (1)
 
-Get the latest exchange rates for 200+ world currencies from `GET /latest.json`, relative to a base currency (USD by default; changing the base requires a paid plan). Rates refresh hourly on the Free and Developer plans, every 30 minutes on Enterprise, and every 5 minutes on Unlimited.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://docs.openexchangerates.org/reference/latest-json](https://docs.openexchangerates.org/reference/latest-json)
-- **Base URL:** `https://openexchangerates.org/api`
+- [Openexchangerates Agentic Access](https://apis.io/agentic-access/openexchangerates/openexchangerates-agentic-access/)
 
-#### Tags
+#### JSON Schema (4)
 
-- Foreign Exchange
-- Exchange Rates
-- Live Rates
+The data models the API reads and writes.
 
-#### Properties
+- [ConvertResponse](https://apis.io/schemas/openexchangerates/convert-response/)
+- [CurrenciesResponse](https://apis.io/schemas/openexchangerates/currencies-response/)
+- [ExchangeRatesResponse](https://apis.io/schemas/openexchangerates/exchange-rates-response/)
+- [OHLCResponse](https://apis.io/schemas/openexchangerates/ohlc-response/)
 
-- [Documentation](https://docs.openexchangerates.org/reference/api-introduction)
-- [API Reference](https://docs.openexchangerates.org/reference/latest-json)
-- [OpenAPI](openapi/openexchangerates-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openexchangerates.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openexchangerates.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON-LD (1)
 
-### Open Exchange Rates Historical Rates API
+Linked-data contexts for the provider's vocabulary.
 
-Get end-of-day foreign exchange rates for any UTC date back to January 1st, 1999 from `GET /historical/{date}.json`. Base currency and symbols filtering are available on the Developer, Enterprise, and Unlimited plans.
+- [Open Exchange Rates Context](https://apis.io/jsonld/openexchangerates/open-exchange-rates/)
 
-- **Human URL:** [https://docs.openexchangerates.org/reference/historical-json](https://docs.openexchangerates.org/reference/historical-json)
-- **Base URL:** `https://openexchangerates.org/api`
+#### Examples (4)
 
-#### Tags
+Example requests and responses.
 
-- Foreign Exchange
-- Historical Rates
-- Exchange Rates
+- [Convert Response](https://apis.io/examples/openexchangerates/convert-response/)
+- [Latest Rates](https://apis.io/examples/openexchangerates/latest-rates/)
+- [Ohlc Response](https://apis.io/examples/openexchangerates/ohlc-response/)
+- [Time Series Response](https://apis.io/examples/openexchangerates/time-series-response/)
 
-#### Properties
+#### Collections (15)
 
-- [API Reference](https://docs.openexchangerates.org/reference/historical-json)
-- [OpenAPI](openapi/openexchangerates-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openexchangerates.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openexchangerates.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### Open Exchange Rates Time Series API
+- [Open Exchange Rates API](https://apis.io/collections/openexchangerates/open-openexchangerates/)
+- [Open Exchange Rates Convert API](https://apis.io/collections/openexchangerates/open-openexchangerates-convert-api/)
+- [Open Exchange Rates Convert Currencies API](https://apis.io/collections/openexchangerates/open-openexchangerates-currencies-api/)
+- [Open Exchange Rates Convert Historical Rates API](https://apis.io/collections/openexchangerates/open-openexchangerates-historical-rates-api/)
+- [Open Exchange Rates Convert Latest Rates API](https://apis.io/collections/openexchangerates/open-openexchangerates-latest-rates-api/)
+- [Open Exchange Rates Convert OHLC API](https://apis.io/collections/openexchangerates/open-openexchangerates-ohlc-api/)
+- [Open Exchange Convert Rates API](https://apis.io/collections/openexchangerates/open-openexchangerates-rates-api/)
+- [Open Exchange Rates Convert Time Series API](https://apis.io/collections/openexchangerates/open-openexchangerates-time-series-api/)
+- [Open Exchange Rates Convert Usage API](https://apis.io/collections/openexchangerates/open-openexchangerates-usage-api/)
+- [Open Exchange Rates Convert API](https://apis.io/collections/openexchangerates/postman-openexchangerates-convert-api/)
+- [Open Exchange Rates Convert Currencies API](https://apis.io/collections/openexchangerates/postman-openexchangerates-currencies-api/)
+- [Open Exchange Rates Convert OHLC API](https://apis.io/collections/openexchangerates/postman-openexchangerates-ohlc-api/)
+- [Open Exchange Convert Rates API](https://apis.io/collections/openexchangerates/postman-openexchangerates-rates-api/)
+- [Open Exchange Rates Convert Time Series API](https://apis.io/collections/openexchangerates/postman-openexchangerates-time-series-api/)
+- [Open Exchange Rates Convert Usage API](https://apis.io/collections/openexchangerates/postman-openexchangerates-usage-api/)
 
-Get bulk daily historical exchange rates for a given start and end date (maximum one month per query) from `GET /time-series.json`. Each day in the range counts as one API request. Available on the Enterprise and Unlimited plans.
+#### Governance rules (1)
 
-- **Human URL:** [https://docs.openexchangerates.org/reference/time-series-json](https://docs.openexchangerates.org/reference/time-series-json)
-- **Base URL:** `https://openexchangerates.org/api`
+Spectral rulesets for the provider's contracts.
 
-#### Tags
+- [Open Exchange Rates — jsonschema rules](https://apis.io/rules/openexchangerates/openexchangerates-jsonschema-spectral-rules/)
 
-- Foreign Exchange
-- Time Series
-- Exchange Rates
+#### Security (2)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [API Reference](https://docs.openexchangerates.org/reference/time-series-json)
-- [OpenAPI](openapi/openexchangerates-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openexchangerates.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openexchangerates.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Openexchangerates Authentication](https://apis.io/security/openexchangerates/openexchangerates-authentication/)
+- [Openexchangerates Domain Security](https://apis.io/security/openexchangerates/openexchangerates-domain-security/)
 
-### Open Exchange Rates Convert API
+#### Plans and pricing (1)
 
-Convert any monetary value from one currency to another at the latest API rates via `GET /convert/{value}/{from}/{to}`, returning the exchange rate used, the timestamp, and the converted amount. Available on the Unlimited plan.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://docs.openexchangerates.org/reference/convert](https://docs.openexchangerates.org/reference/convert)
-- **Base URL:** `https://openexchangerates.org/api`
+- [Openexchangerates Plans Pricing](https://apis.io/plans/openexchangerates/openexchangerates-plans-pricing/)
 
-#### Tags
+#### Rate limits (1)
 
-- Currency Conversion
-- Foreign Exchange
-- FX
+Published request limits.
 
-#### Properties
+- [Openexchangerates Rate Limits](https://apis.io/rate-limits/openexchangerates/openexchangerates-rate-limits/)
 
-- [API Reference](https://docs.openexchangerates.org/reference/convert)
-- [OpenAPI](openapi/openexchangerates-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openexchangerates.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openexchangerates.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### FinOps (1)
 
-### Open Exchange Rates Currencies API
+What the API costs to run, by operation.
 
-Get the list of all currency symbols available through the API as a JSON map of 3-letter codes to full currency names from `GET /currencies.json`, with options to include alternative, digital, and inactive currencies. Requests to this endpoint do not count against your usage quota.
+- [Openexchangerates Finops](https://apis.io/finops/openexchangerates/openexchangerates-finops/)
 
-- **Human URL:** [https://docs.openexchangerates.org/reference/currencies-json](https://docs.openexchangerates.org/reference/currencies-json)
-- **Base URL:** `https://openexchangerates.org/api`
+## Where to find this API
 
-#### Tags
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- Currency
-- Reference Data
-- ISO 4217
-
-#### Properties
-
-- [API Reference](https://docs.openexchangerates.org/reference/currencies-json)
-- [OpenAPI](openapi/openexchangerates-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openexchangerates.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openexchangerates.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Open Exchange Rates OHLC API
-
-Get open, high, low, close, and time-weighted average exchange rates for a given period (1m to 1mo) from `GET /ohlc.json`, with data available from December 19th, 2016. Restricted to the VIP Platinum tier.
-
-- **Human URL:** [https://docs.openexchangerates.org/reference/ohlc-json](https://docs.openexchangerates.org/reference/ohlc-json)
-- **Base URL:** `https://openexchangerates.org/api`
-
-#### Tags
-
-- OHLC
-- Foreign Exchange
-- Market Data
-
-#### Properties
-
-- [API Reference](https://docs.openexchangerates.org/reference/ohlc-json)
-- [OpenAPI](openapi/openexchangerates-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openexchangerates.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openexchangerates.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Open Exchange Rates Usage API
-
-Get plan information and usage statistics for your App ID from `GET /usage.json` - account status, plan name, quota, update frequency, enabled features, requests made, requests remaining, and daily average. Requests to this endpoint do not count against your usage quota.
-
-- **Human URL:** [https://docs.openexchangerates.org/reference/usage-json](https://docs.openexchangerates.org/reference/usage-json)
-- **Base URL:** `https://openexchangerates.org/api`
-
-#### Tags
-
-- Usage
-- Account
-- Quotas
-
-#### Properties
-
-- [API Reference](https://docs.openexchangerates.org/reference/usage-json)
-- [OpenAPI](openapi/openexchangerates-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openexchangerates.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openexchangerates.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/openexchangerates)
-- [LinkedIn](https://www.linkedin.com/company/open-exchange-rates)
 - [Website](https://openexchangerates.org)
 - [Documentation](https://docs.openexchangerates.org)
 - [Pricing](https://openexchangerates.org/signup)
-- [Plans](plans/openexchangerates-plans-pricing.yml)
-- [Rate Limits](rate-limits/openexchangerates-rate-limits.yml)
-- [Fin Ops](finops/openexchangerates-finops.yml)
+- [Support](https://support.openexchangerates.org)
+- [Terms of service](https://openexchangerates.org/terms)
+- [Privacy policy](https://openexchangerates.org/privacy)
+- [GitHub](https://github.com/openexchangerates)
+- [Status](https://status.openexchangerates.org)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 40.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 55.1 |
+| Contract governance | 9.8 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 39.5 |
+
+**Agent readiness 28.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/openexchangerates/](https://apis.io/providers/openexchangerates/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Open Exchange Rates: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/openexchangerates/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
